@@ -1,0 +1,31 @@
+# APM (Agent Package Manager)
+# Ignore APM modules cache
+/apm_modules/
+
+# Ignore local lockfile (package development mode)
+/apm.lock.yaml
+
+# Ignore compiled/generated agent target folders (testing/development)
+/.agents/
+/.claude/
+/.cursor/
+/.gemini/
+/.github/
+/.opencode/
+/.windsurf/
+/AGENTS.md
+/CLAUDE.md
+/GEMINI.md
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
