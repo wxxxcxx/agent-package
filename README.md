@@ -154,7 +154,7 @@ apm compile --local-only
    ```
 2. 安装本项目作为依赖（例如通过 Git 仓库）：
    ```bash
-   apm install git+https://github.com/<owner>/w-agent-package.git
+   apm install git+https://github.com/wxxxcxx/agent-package.git
    ```
 3. 运行编译命令，将这些技能注入到你项目的 AI 工具链配置中：
    ```bash
