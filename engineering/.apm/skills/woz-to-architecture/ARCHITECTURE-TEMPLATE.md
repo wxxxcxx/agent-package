@@ -1,6 +1,6 @@
 # Architecture Design
 
-**Status:** Draft | Current
+**Status:** Living document — updated as the system evolves
 **Date:** [YYYY-MM-DD]
 
 ## 1. System Context
