@@ -1,0 +1,23 @@
+name: w-general
+version: 1.0.0
+description: APM project for general
+author: W
+# Which agent platforms to deploy to.
+# Resolution order: --target flag > this field > auto-detect from filesystem.
+# Accepted values: vscode, agents, copilot, claude, cursor, opencode, codex,
+# gemini, antigravity, windsurf, kiro, agent-skills, all
+targets:
+- claude
+- codex
+- copilot
+- cursor
+- gemini
+- opencode
+- windsurf
+dependencies:
+  apm: []
+  mcp: []
+includes:
+  - .apm/skills
+  - .apm/prompts
+scripts: {}

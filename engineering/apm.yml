@@ -1,6 +1,6 @@
-name: w
+name: w-engineering
 version: 1.0.0
-description: APM project for agent-package
+description: Engineering skills package
 author: W
 targets:
   - claude
@@ -12,9 +12,9 @@ targets:
   - windsurf
 dependencies:
   apm:
-    - path: ./general
-    - path: ./engineering
+    - path: ../general
   mcp: []
-devDependencies:
-  apm: []
+includes:
+  - .apm/skills
+  - .apm/prompts
 scripts: {}
