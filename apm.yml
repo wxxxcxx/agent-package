@@ -14,7 +14,6 @@ dependencies:
   apm:
     - path: ./general
     - path: ./engineering
-    - C:\Users\W\Workspace\Personal\agent-package\general
   mcp: []
 devDependencies:
   apm: []
