@@ -1,5 +1,5 @@
 ---
-description: "Implement a piece of work based on a PRD or set of issues."
+description: "Implement a piece of work based on a spec or set of tickets."
 ---
 
 Please read and follow the instructions in the `woz-implement` skill playbook:
