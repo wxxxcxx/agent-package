@@ -2,7 +2,7 @@
 
 ## 有上游对应
 
-| 本仓库SKILL                                | 上游路径                                           |
+| 本仓库SKILL                                | 上游SKILL                                          |
 | ------------------------------------------ | -------------------------------------------------- |
 | `skills/woz-grill-with-docs`               | `skills/engineering/grill-with-docs`               |
 | `skills/woz-research`                      | `skills/engineering/research`                      |

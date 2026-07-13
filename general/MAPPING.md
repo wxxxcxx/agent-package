@@ -1,6 +1,6 @@
 # General 技能映射
 
-| 本仓库SKILL                       | 上游路径                                   |
+| 本仓库SKILL                       | 上游SKILL                                  |
 | --------------------------------- | ------------------------------------------ |
 | `skills/woz-grill-me`             | `skills/productivity/grill-me`             |
 | `skills/woz-grilling`             | `skills/productivity/grilling`             |
