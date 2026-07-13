@@ -1,162 +1,117 @@
-# Skills
+# agent-package — 技能包
 
-本项目包含 18 个为 AI 编程助手（如 Claude Code、OpenCode 等）设计的 **skills**（技能指令集），分为工程（Engineering）和通用（General）两大类。每个 skill 是一个标准化的指令文件，指导 AI 以可预测、可重复的方式完成特定任务。
+21 个 AI 编程助手技能（skills），派生自 [mattpocock/skills](https://github.com/mattpocock/skills)。每个 skill 定义可复现的行为模式，通过 APM 分发。
 
-> 本集源自 [mattpocock/skills](https://github.com/mattpocock/skills)。
+## 技能一览
 
-## 目录结构
+### 主流程：想法 → 交付
 
-```
-.apm/
-└── skills/
-    ├── guide/              技能路由与导航 (Engineering)
-    ├── codebase-design/    深度模块设计词汇 (Engineering)
-    ├── diagnosing-bugs/    Bug 诊断流程 (Engineering)
-    ├── domain-modeling/    领域模型维护 (Engineering)
-    ├── grill-with-docs/    带文档生成的方案拷问 (Engineering)
-    ├── implement/          通用实现入口 (Engineering)
-    ├── improve-codebase-architecture/ 架构改进报告 (Engineering)
-    ├── init/               项目配置 (Engineering)
-    ├── prototype/          快速原型 (Engineering)
-    ├── tdd/                测试驱动开发 (Engineering)
-    ├── to-issues/          PRD → Issues (Engineering)
-    ├── to-prd/             对话 → PRD (Engineering)
-    ├── triage/             Issue 分类流转 (Engineering)
-    ├── grill-me/           方案拷问（无代码库版）(General)
-    ├── grilling/           拷问引擎核心 (General)
-    ├── handoff/            跨会话交接 (General)
-    ├── teach/              多会话教学 (General)
-    └── writing-great-skills/  Skill 编写指南 (General)
-```
+| Skill | 调用方 | 职责 |
+|-------|--------|------|
+| `woz-grill-with-docs` | 用户调用 | 拷问打磨想法，并生成 CONTEXT.md 和 ADRs |
+| `woz-help` | 用户调用 | 技能路由器 — 描述你的场景，推荐路径 |
+| `woz-to-spec` | `woz-help` → | 将当前对话合成为 PRD，发布到 tracker |
+| `woz-to-tickets` | `woz-help` → | 将 PRD 拆为垂直切片 ticket（声明阻塞边） |
+| `woz-implement` | `woz-help` → | 通用实现入口，内部驱动 `woz-tdd`，最终运行 `woz-code-review` |
+| `woz-tdd` | `woz-implement` 调用 | 红-绿-重构循环 |
+| `woz-code-review` | `woz-implement` 调用 | 双轴审查（规范 + 规格） |
+| `woz-prototype` | 主流程分支 | 一次性原型验证设计问题（逻辑或 UI） |
+| `woz-handoff` | 主流程/跨会话 | 上下文压缩，桥接会话窗口 |
 
----
+### 入轨（On-ramps）
 
-## 工程类 (Engineering)
+| Skill | 调用方 | 职责 |
+|-------|--------|------|
+| `woz-triage` | 用户调用 | Issue/PR 分类流转，输出 agent-ready brief |
+| `woz-diagnosing-bugs` | 用户调用 | 严格 Bug 诊断（先建反馈环，再假设） |
+| `woz-wayfinder` | 用户调用 | 探索式规划大块工作，逐步收窄 |
 
-| Skill | 调用方式 | 核心职责 | 输入 -> 产出 |
-|-------|---------|---------|-------------|
-| **guide** | 用户调用 | 技能路由与导航 | 自然语言问题 -> 推荐具体 skill/流程 |
-| **codebase-design** | 模型调用 | 架构设计共享词汇 | 设计需求 -> 深度模块设计方案 |
-| **diagnosing-bugs** | 模型调用 | 严谨 Bug 诊断 | 用户报告异常 -> 修复 + 回归测试 |
-| **domain-modeling** | 模型调用 | 领域模型构建与打磨 | 用户讨论 -> CONTEXT.md / ADRs |
-| **grill-with-docs** | 用户调用 | 方案拷问 + 文档生成 | 用户想法 -> 经过打磨的方案 + CONTEXT.md + ADRs |
-| **implement** | 用户调用 | 通用功能实现 | PRD/Issues -> 已实现 + 已提交的代码 |
-| **improve-codebase-architecture** | 用户调用 | 架构改进建议 | 代码库 -> HTML 架构报告 -> 选定改进项的 grilling |
-| **prototype** | 用户调用 | 一次性快速原型 | 待验证问题 -> 可运行原型 + 决策记录 |
-| **init** | 用户调用 | 一次性项目配置 | 裸仓库 -> 可运行工程 skills 的仓库 |
-| **tdd** | 模型调用 | 测试驱动开发 | 行为需求 -> 通过测试 + 实现 |
-| **to-issues** | 用户调用 | PRD → Issue 拆分 | 计划/PRD -> 一组垂直切片 issue |
-| **to-prd** | 用户调用 | 对话 → PRD 合成 | 当前对话 -> PRD（已发布到 tracker） |
-| **triage** | 用户调用 | Issue 分类流转 | 原始 Issue/PR -> 已标记 + 含 agent brief 的 Issue |
+### 代码库健康
 
----
+| Skill | 调用方 | 职责 |
+|-------|--------|------|
+| `woz-improve-codebase-architecture` | 用户调用 | 扫描浅模块，生成 HTML 报告，挑选改进项 |
 
-## 通用类 (General)
+### 底层词汇（被其他 skill 引用）
 
-| Skill | 调用方式 | 核心职责 | 输入 -> 产出 |
-|-------|---------|---------|-------------|
-| **grill-me** | 用户调用 | 方案拷问（无代码库版） | 用户想法 -> 打磨后的清晰方案 |
-| **grilling** | 模型调用 | 拷问引擎核心 | 模糊想法 -> 经过应力测试的共识 |
-| **handoff** | 用户调用 | 跨会话上下文交接 | 当前会话 -> handoff.md（临时目录） |
-| **teach** | 用户调用 | 多会话教学系统 | 学习主题 -> MISSION + Lessons + Reference + Learning Records |
-| **writing-great-skills** | 用户调用 | Skill 编写参考 | Skill 写作/编辑需求 -> 符合规范的 skill |
+| Skill | 职责 |
+|-------|------|
+| `woz-codebase-design` | 深度模块设计词汇（module, seam, depth, leverage...） |
+| `woz-domain-modeling` | 领域术语打磨，ADR 记录 |
 
----
+### 独立工具
 
-## 主流程概览
+| Skill | 调用方 | 职责 |
+|-------|--------|------|
+| `woz-grill-me` | 用户调用 | 无代码库的方案拷问 |
+| `woz-grilling` | 内部引擎 | 拷问核心（被 `grill-with-docs`, `triage` 等调用） |
+| `woz-research` | 用户调用 | 后台代理调查问题，输出引用 Markdown |
+| `woz-resolving-merge-conflicts` | 用户调用 | 解决合入/变基冲突 |
+| `woz-teach` | 用户调用 | 多会话有状态教学 |
+| `woz-writing-great-skills` | 用户调用 | Skill 编写指南 |
+| `woz-setup-project` | 用户调用 | 一次性项目配置（issue tracker / triage labels / domain docs） |
 
-| 场景 | 推荐路径 | 说明 |
-|------|---------|------|
-| **有一个新想法** | `grill-with-docs` → [是否多会话？→ `to-prd` → `to-issues` → 每个 issue 开新会话 `implement`] | 先在代码库语境下拷问打磨，然后决定是否拆分为独立 issue 实现 |
-| **需要验证一个决策** | `handoff` → `prototype` → `handoff` 回来 | 分支出去做一次性原型（逻辑验证或 UI 探索），回来继续主线程 |
-| **收到 Bug/功能请求** | `triage` → `implement` | 先经过 triage 分类验证，再实现 |
-| **想学新技能** | `teach` | 多会话有状态学习 |
-| **偶尔架构维护** | `improve-codebase-architecture` | 扫描浅模块、生成报告、挑选改进 |
-| **不确定用哪个** | `guide` | 路由到正确的 skill |
-| **第一次使用** | `init` | 配好 issue tracker / 标签 / 领域文档再开始 |
-
-### 主流程关系图
+## 调用关系
 
 ```
-                                     ┌─────────────────┐
-                                     │    init        │ (一次性)
-                                     └────────┬────────┘
-                                              │
-             ┌────────── guide ────────────┤
-             │                                │
-             ▼                                ▼
-     ┌──────────────┐                ┌────────────────┐
-     │  grill-me  │                │grill-with-docs│
-     │  (无代码库)   │                │ (有代码库+文档)  │
-     └──────┬───────┘                └───────┬────────┘
-            │                                │
-            │    ┌──────────┐               │
-            └────│grilling│◄──────────────┘
-                 │ (查问引擎)│◄──── improve-codebase-architecture
-                 └────┬─────┘      triage
-                      │
-            ┌─────────┴─────────┐
-            ▼                   ▼
-     ┌──────────┐       ┌──────────┐
-     │ to-prd │       │prototype│
-     └────┬─────┘       │ (一次性)  │
-          │             └────┬─────┘
-          ▼                  │
-     ┌──────────┐            │
-     │to-issues│◄───────────┘ (验证后回来)
-     └────┬─────┘
-          │
-          ▼
-     ┌──────────┐     ┌──────────┐
-     │implement├───►│  tdd   │
-     └──────────┘     └──────────┘
-          │
-          ▼
-     ┌──────────┐
-     │ handoff│ (跨会话，通向新会话或新原型)
-     └──────────┘
+woz-setup-project (一次性)
+       │
+       ▼
+woz-help ─── 路由器，推荐以下路径
 
-     工具类（被其他 skill 引用）：
-     ┌──────────────────┐  ┌─────────────────┐
-     │ my-codebase-      │  │ my-domain-       │
-     │ design           │  │ modeling        │
-     └──────────────────┘  └─────────────────┘
+═══ 新想法 ═══
+                                          ┌──────────────────┐
+woz-grill-with-docs ─────────► 单会话？──►   woz-implement    │
+       │                              │     └── woz-tdd      │
+       │                              │     └── woz-code-review
+       │                              │
+       │               ┌──────────────┘
+       │               ▼ 多会话？
+       │         woz-to-spec → woz-to-tickets
+       │                     每个 ticket → woz-implement (新会话)
+       │
+       └── 需要验证？→ woz-handoff → woz-prototype → woz-handoff
 
-     独立技能：
-     ┌──────────────────┐  ┌──────────────────────┐
-     │ teach          │  │ my-writing-great-     │
-     │ (多会话学习)      │  │ skills               │
-     └──────────────────┘  └──────────────────────┘
+═══ Bug / 请求涌入 ═══
+woz-triage → woz-implement
+
+═══ 大块模糊工作 ═══
+woz-wayfinder → woz-to-spec / woz-implement
+
+═══ 难复现 Bug ═══
+woz-diagnosing-bugs
+       └── 无合适 seam → woz-improve-codebase-architecture
+
+═══ 代码库健康 ═══
+woz-improve-codebase-architecture → woz-grill-with-docs (产生改进想法)
+
+═══ 底层词汇（被以上技能引用） ═══
+woz-codebase-design   ← woz-improve-codebase-architecture, woz-tdd
+woz-domain-modeling   ← woz-grill-with-docs, woz-triage
+
+═══ 独立使用 ═══
+woz-grill-me      无代码库的方案拷问
+woz-teach         多会话学习
+woz-research      后台研究
+woz-resolving-merge-conflicts  冲突解决
+woz-writing-great-skills       Skill 创作指南
 ```
 
----
+## 命名约定
 
-## APM (Agent Package Manager) 使用指南
+所有技能以 `woz-` 前缀命名，与上游 `mattpocock/skills` 区分。以下为特殊映射：
 
-本项目现已改造为一个标准的 APM 包，你可以通过 APM 将这些技能轻松集成到各种 AI 编程助手（如 Claude Code, Cursor, Copilot 等）中。
+| 上游名 | 本仓库名 |
+|--------|----------|
+| `ask-matt` | `woz-help` |
+| `setup-matt-pocock-skills` | `woz-setup-project` |
+| 其余 | `woz-` + 原名 |
 
-### 1. 本地编译 (对于本仓库开发者)
+## 使用方式
 
-如果你在当前仓库进行开发，想要编译并输出技能到本地的各个 AI 客户端配置目录：
+通过 [APM](https://github.com/anomalyco/agent-package-manager) 安装和编译：
 
 ```bash
-# 编译所有本地 primitive（技能、提示等）到对应的 AI 客户端目录
-apm compile --local-only
+apm install git+https://github.com/wxxxcxx/agent-package.git
+apm compile
 ```
-
-### 2. 作为依赖安装 (对于其他项目)
-
-要在其他项目中使用本项目定义的技能：
-
-1. 在你的项目根目录下初始化 APM：
-   ```bash
-   apm init
-   ```
-2. 安装本项目作为依赖（例如通过 Git 仓库）：
-   ```bash
-   apm install git+https://github.com/wxxxcxx/agent-package.git
-   ```
-3. 运行编译命令，将这些技能注入到你项目的 AI 工具链配置中：
-   ```bash
-   apm compile
-   ```
