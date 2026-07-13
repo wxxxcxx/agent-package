@@ -189,11 +189,4 @@ Agent 生成第二个 handoff 文档，包含：
 | `setup-matt-pocock-skills` | `woz-setup-project` |
 | 其余 | `woz-` + 原名 |
 
-## 使用方式
 
-通过 [APM](https://github.com/microsoft/apm) 安装和编译：
-
-```bash
-apm install git+https://github.com/wxxxcxx/agent-package.git
-apm compile
-```
