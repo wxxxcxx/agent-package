@@ -29,7 +29,7 @@
 5. **必须检查 SKILL.md 的 `name:` frontmatter 是否与目录名一致**（上游的 `name:` 保留了原名，需要改为 `woz-` 前缀，如 `name: code-review` → `name: woz-code-review`）
 6. 验证所有引用的 `/woz-*` 技能是否在 `.agents/skills/` 下真实存在，缺失的输出警告（不中止同步）
 7. 进行 git diff，输出变化报告（包含：变更技能清单 + 缺失引用警告，不输出 `name:` 修复清单）
-8. 更新 `apm.yml` 的 `version` 字段
+8. 更新 `apm.yml` 的 `version` 字段 （更新修订号）
 
 ## 注意事项
 
