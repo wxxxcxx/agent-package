@@ -32,3 +32,5 @@ Thumbs.db
 
 # APM dependencies
 apm_modules/
+
+.sync-tmp

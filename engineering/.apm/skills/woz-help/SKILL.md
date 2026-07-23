@@ -14,7 +14,7 @@ A **flow** is a path through the skills. Most paths run along one **main flow**,
 
 The route most work travels. You have an idea and want it built.
 
-1. **`/woz-grill-with-docs`** — sharpen the idea by interview. Start here when you **have a codebase**: it's stateful, retaining what it learns in `CONTEXT.md` and ADRs. (No codebase? Use `/woz-grill-me` — see Standalone. Both run the same `/woz-grilling` primitive; `woz-grill-with-docs` is the one that leaves a paper trail.)
+1. **`/woz-grill-with-docs`** — sharpen the idea by interview. Start here when you **have a codebase**: it's stateful, retaining what it learns in `CONTEXT.md` and ADRs. (No codebase? Use `/woz-grill-me` — see Standalone. Both run the same `/woz-grilling` primitive; `grill-with-docs` is the one that leaves a paper trail.)
 2. **Branch — can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`/woz-handoff`** in both directions (see Crossing sessions):
    - **`/woz-handoff`** out, then open a fresh session against that file,
    - **`/woz-prototype`** to answer the question with throwaway code,
@@ -41,7 +41,9 @@ A starting situation that generates work, then merges onto the main flow.
 
 - **Something's broken** → **`/woz-diagnosing-bugs`**. For the hard ones: the bug that resists a first glance, the intermittent flake, the regression that crept in between two known-good states. It refuses to theorise until it has a **tight feedback loop** — one command that already goes red on *this* bug — then fixes with a regression test. Its post-mortem hands off to **`/woz-improve-codebase-architecture`** when the real finding is that there's no good seam to lock the bug down.
 
-- **A huge, foggy effort — a greenfield project or a huge feature build, too big for one session** → **`/woz-wayfinder`**. When the way from here to the destination isn't visible yet, it charts a **shared map** of investigation tickets on the issue tracker and resolves them one at a time — producing **decisions, not deliverables** — until the fog is pushed back and the way is clear. Then it merges onto the main flow at **`/woz-to-spec`** (or, if the effort turned out small enough, straight to **`/woz-implement`**). Where **`/woz-grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't.
+- **A huge, foggy effort — a greenfield project or a huge feature build, too big for one session** → **`/woz-wayfinder`**, the most cognitively demanding flow here. When the way from here to the destination isn't visible yet, it charts a **shared map** of **decision tickets** on the issue tracker and resolves them one at a time — producing **decisions, not deliverables** — until the fog is pushed back and the way is clear. Where **`/woz-grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't — and it's slower and denser, so save it for exactly that, never a well-scoped feature.
+
+  When the map clears, **it hands off, it doesn't build**: merge onto the main flow at **`/woz-to-spec`**, which collapses the map's linked decisions into a buildable plan, then `/woz-to-tickets` and `/woz-implement` as usual. Looping the map straight into `/woz-implement` skips that collapse and throws the linked detail away — go straight to `/woz-implement` only when the effort turned out genuinely small.
 
 ## Codebase health
 
