@@ -18,7 +18,7 @@ issue tracker 应已提供；若未提供，提示用户先运行 `/w-setup-proj
 
 用户给出的即固定点（commit SHA、分支名、标签、`main`、`HEAD~5` 等）。若未给出，先询问。
 
-一次性记下 diff 命令：`git diff <fixed-point>...HEAD`；三点写法，比较基准为 merge-base。同时用 `git log <fixed-point>..HEAD --oneline` 记下提交列表。
+先记下 diff 命令：`git diff <fixed-point>...HEAD`；三点写法，比较基准为 merge-base。同时用 `git log <fixed-point>..HEAD --oneline` 记下提交列表。
 
 继续之前先确认固定点可解析（`git rev-parse <fixed-point>`）且 diff 非空。错误的 ref 或空 diff 应在此处失败，而不是在两个并行子代理内部失败。
 

@@ -70,7 +70,7 @@ flowchart LR
 ## 独立使用
 
 ```
-/w-grill-me           连环追问，不落盘
+/w-grill-me           连环追问，不留记录
 /w-prototype          一次性代码验证设计问题
 /w-research           后台调研，产出带引用的 Markdown
 /w-handoff            把当前对话压缩成交接文档

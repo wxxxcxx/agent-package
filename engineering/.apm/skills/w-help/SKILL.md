@@ -27,7 +27,7 @@ disable-model-invocation: true
      - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 tickets 当**任务图**读，在就绪的**边界**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
    - **否** → 就在**同一个上下文窗口**里跑 **`/w-implement`**。
 
-   两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收口——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 ticket 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
+   两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收尾——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 ticket 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
 
    工作要以 PR 形式提交时，**`/w-pr`** 决定正文形状：能说清改动的最小视图、改动前后的证据、以及单向门/双向门的判断。它是模型自调用的，写 PR 时 agent 会自己去拿。
 
