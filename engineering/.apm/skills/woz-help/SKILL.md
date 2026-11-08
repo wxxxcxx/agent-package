@@ -1,78 +1,97 @@
 ---
 name: woz-help
-description: Ask which skill or flow fits your situation. A router over the skills in this repo.
+description: 不知道该用哪个技能时，问这里。它是本仓库技能之上的路由器。
 disable-model-invocation: true
 ---
 
-# Ask Matt
+# 技能路由
 
-You don't remember every skill, so ask.
+技能太多记不住，问就对了。
 
-A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
+**在说某个技能做什么、或建议跳过某一步之前，先读那个技能的 SKILL.md**：这里的摘要只用于定位。
 
-## The main flow: idea → ship
+**流（flow）** 是穿过技能的一条路径。多数路径沿一条**主流程**走，另有两条**入轨**汇入其中。其余技能要么独立使用，要么是跑在底下的词汇层。
 
-The route most work travels. You have an idea and want it built.
+## 主流程：想法 → 交付
 
-1. **`/woz-grill-with-docs`** — sharpen the idea by interview. Start here when you **have a codebase**: it's stateful, retaining what it learns in `CONTEXT.md` and ADRs. (No codebase? Use `/woz-grill-me` — see Standalone. Both run the same `/woz-grilling` primitive; `grill-with-docs` is the one that leaves a paper trail.)
-2. **Branch — can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`/woz-handoff`** in both directions (see Crossing sessions):
-   - **`/woz-handoff`** out, then open a fresh session against that file,
-   - **`/woz-prototype`** to answer the question with throwaway code,
-   - **`/woz-handoff`** back what you learned, and reference it from the original idea thread.
-3. **Branch — is this a multi-session build?**
-   - **Yes** → **`/woz-to-spec`** (turn the thread into a spec), then **`/woz-to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed — kick off **`/woz-implement`** per ticket, **clearing context between each one**.
-   - **No** → **`/woz-implement`** right here, in the same context window.
+多数工作走的路。你有个想法，想把它做出来。
 
-   Either way, **`/woz-implement`** builds each issue by driving **`/woz-tdd`** internally — one red-green slice at a time — then closes out by running **`/woz-code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. Reach for **`/woz-tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/woz-code-review`** on its own whenever you want to review a branch or PR against a fixed point.
+1. **`/woz-grill-with-docs`** 通过访谈把想法磨尖。只要你**在一个工作目录里**，就从这里开始：它是有状态的，学到的内容会落到 `GLOSSARY.md` 和 ADR 里。（没有工作目录？改用 `/woz-grill-me`，见「独立使用」。两者跑的是同一个 `/woz-grilling` 原语；`grill-with-docs` 会留下记录，所以只要手边有仓库，它就是更好的那个。）
+2. **分支：所有问题都能在对话里定下来吗？** 如果某个问题需要一个能跑起来的答案（状态、业务逻辑、必须看到的 UI），就绕道去原型，来回都用 **`/woz-handoff`** 衔接（原型住在自己的目录里，这正是 `/woz-handoff` 的用途；见「阶段边界」）：
+   - **`/woz-handoff`** 带出去，对着那份文件开一个新会话；
+   - **`/woz-prototype`** 用一次性代码回答那个问题；
+   - 再用 **`/woz-handoff`** 把学到的带回来，并在原来的想法线程里引用它。
+3. **分支：这是要跨多个会话的构建吗？**
+   - **是** → **`/woz-to-spec`**（把线程变成 spec），再用 **`/woz-to-tickets`** 拆成 tracer bullet ticket，每张声明自己的**阻塞边**。然后二选一：
+     - 逐 ticket 跑 **`/woz-implement`**，**每张之间 `/clear` 上下文**。本地 tracker 就是 `.scratch/<feature>/issues/` 下一张一个文件，手工按阻塞顺序做；真 tracker 上这些边会变成原生阻塞链接，任何阻塞已完成的 ticket 都能领。每张 ticket 都是自包含的，所以上一张的上下文可以丢。
+     - 用 **`/woz-implement-spec`** 一次跑完整份 spec。它把 tickets 当**任务图**读，在就绪的**边界**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
+   - **否** → 就在**同一个上下文窗口**里跑 **`/woz-implement`**。
 
-### Context hygiene
+   两条路都是靠驱动 **`/woz-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/woz-code-review`** 收口——那是针对 diff 的双轴评审（规范 + 规格）。`/woz-implement` 对每张 ticket 都跑这两步；`/woz-implement-spec` 的实现者各自驱动 `/woz-tdd`，整条集成分支只跑一次 `/woz-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/woz-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/woz-code-review`**。
 
-Keep steps 1–3 in **one unbroken context window** — don't compact or clear until after `/woz-to-tickets` — so the grilling, spec, and tickets all build on the same thinking. Each `/woz-implement` then starts fresh, working from the ticket.
+   工作要以 PR 形式提交时，**`/woz-pr`** 决定正文形状：能说清改动的最小视图、改动前后的证据、以及单向门/双向门的判断。它是模型自调用的，写 PR 时 agent 会自己去拿。
 
-The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~120k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/woz-to-tickets`, don't push on degraded — `/woz-handoff` and continue in a fresh thread.
+4. **`/woz-retro`** 收尾闭环。构建之后——尤其是跑歪了的那次——回看这次会话，提出对 agent **环境**的改动，而不是对代码的改动：导航指针、自动化检查、`/woz-code-review` 执行的编码规范、引导文件、工具链。机械型错误变成确定性检查；判断题变成编码规范。下一次构建就从一个更好的环境开始。
 
-## On-ramps
+### 上下文卫生
 
-A starting situation that generates work, then merges onto the main flow.
+第 1–3 步保持在**同一个不被打断的上下文窗口**里（`/woz-to-tickets` 之前不要 compact、不要 clear），这样拷问、spec、tickets 都建立在同一套思考上。之后每个 `/woz-implement` 都从 ticket 重新开始。`/woz-retro` 要在它回看的那次会话里跑，clear 之前跑；已经 clear 了，就把它指向那次会话的日志。
 
-- **Bugs and requests piling up** → **`/woz-triage`**. It moves issues through triage roles and produces agent-ready issues, which **`/woz-implement`** later picks up.
+这里的限制是 **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**：模型仍能锐利推理的那个窗口（当前最强模型上大约 150k token）。如果还没到 `/woz-to-tickets` 就接近它，不要硬撑着降智跑；在最近的阶段边界 `/compact`，然后继续（见「阶段边界」）。
 
-  Triage is only for issues **you didn't create** — bug reports, incoming feature requests, anything that arrives raw. Tickets that `/woz-to-tickets` produced are already agent-ready, so **don't triage them**.
+## 入轨
 
-- **Something's broken** → **`/woz-diagnosing-bugs`**. For the hard ones: the bug that resists a first glance, the intermittent flake, the regression that crept in between two known-good states. It refuses to theorise until it has a **tight feedback loop** — one command that already goes red on *this* bug — then fixes with a regression test. Its post-mortem hands off to **`/woz-improve-codebase-architecture`** when the real finding is that there's no good seam to lock the bug down.
+一种起始处境，先产出工作，再汇入主流程。
 
-- **A huge, foggy effort — a greenfield project or a huge feature build, too big for one session** → **`/woz-wayfinder`**, the most cognitively demanding flow here. When the way from here to the destination isn't visible yet, it charts a **shared map** of **decision tickets** on the issue tracker and resolves them one at a time — producing **decisions, not deliverables** — until the fog is pushed back and the way is clear. Where **`/woz-grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't — and it's slower and denser, so save it for exactly that, never a well-scoped feature.
+- **Bug 和需求堆起来了** → **`/woz-triage`**。它让 issue 走完分诊角色，产出 agent 可直接开工的 issue，之后由 **`/woz-implement`** 接手。
 
-  When the map clears, **it hands off, it doesn't build**: merge onto the main flow at **`/woz-to-spec`**, which collapses the map's linked decisions into a buildable plan, then `/woz-to-tickets` and `/woz-implement` as usual. Looping the map straight into `/woz-implement` skips that collapse and throws the linked detail away — go straight to `/woz-implement` only when the effort turned out genuinely small.
+  分诊只处理**不是你创建**的 issue：bug 报告、外部需求、任何原始进来的东西。`/woz-to-tickets` 产出的 ticket 已经是 agent-ready，**不要再去分诊**。
 
-## Codebase health
+- **有东西坏了** → **`/woz-diagnosing-bugs`**。给难的那些：一眼看不出来的、偶发的、夹在两个已知良好状态之间的回归。它在拿到**紧反馈环**（一条已经对*这个* bug 变红的命令）之前拒绝空想，然后用回归测试修掉。修完之后，在同一次会话里跑 **`/woz-retro`**，问「什么能预防这个 bug」；如果真正的发现是「没有合适的接缝能锁住它」，那就是 **`/woz-improve-codebase-architecture`** 的活。
 
-Not feature work — upkeep.
+- **巨大而模糊的工程：全新项目，或一次会话装不下的大功能** → **`/woz-wayfinder`**，这里认知负担最重的流程。从当前点到目的地还看不清路时，它在 issue tracker 上铺一张**共享地图**——一组**决策 ticket**——然后逐个解决，产出**决策而非交付物**，直到迷雾退去、路看清为止。`/woz-grill-with-docs` 磨的是你能在一个会话里握住的想法，wayfinder 处理的是你握不住的那个；它更慢更重，所以只留给这种场合，绝不要用在一个范围已经清楚的功能上。
 
-- **`/woz-improve-codebase-architecture`** — run whenever you have a spare moment to keep the codebase good for agents to operate in. It surfaces **deepening opportunities**; picking one _generates an idea_ you can take into the main flow at `/woz-grill-with-docs`. It's the survey that finds the candidates; **`/woz-codebase-design`** (below) is the bench you design the chosen one on.
+  地图清晰后，**它只交接、不构建**：在 **`/woz-to-spec`** 处汇入主流程，把地图里互相关联的决策压成可执行的计划，然后照常 `/woz-to-tickets`、`/woz-implement`。把地图直接接到 `/woz-implement` 会跳过这次压缩、丢掉关联细节，所以只有当发现这活其实很小的时候才直接 `/woz-implement`。
 
-## Vocabulary underneath
+## 代码库健康
 
-Two model-invoked references that run *beneath* the other skills — each the single source of truth for its vocabulary. Reach for them directly when the **words**, not the process, are the problem; or let the skills above pull them in.
+不是功能开发，是维护。
 
-- **`/woz-domain-modeling`** — sharpen the project's *domain* language: challenge a fuzzy term, resolve an overloaded word ("account" doing three jobs), record a hard-to-reverse decision as an ADR. It's the active discipline `/woz-grill-with-docs` drives to keep `CONTEXT.md` a clean glossary.
-- **`/woz-codebase-design`** — the deep-module vocabulary (module, interface, depth, seam, adapter, leverage, locality) for designing a module's *shape*: a lot of behaviour behind a small interface at a clean seam. `/woz-tdd` and `/woz-improve-codebase-architecture` both speak it.
+- **`/woz-improve-codebase-architecture`**：有空就跑一次，让代码库保持适合 agent 作业。它挑出**可深化的机会**；选中一个就*生成一个想法*，可以带进主流程的 `/woz-grill-with-docs`。它是找候选的普查；**`/woz-codebase-design`**（下）是你设计选中项的工作台。
 
-## Crossing sessions
+## 底下的词汇层
 
-- **`/woz-handoff`** — when a thread is full or you need to branch off (e.g. into a `/woz-prototype` session), this compacts the conversation into a markdown file. You don't continue in place — you **open a new session and reference that file** to carry the context across. It's the bridge between context windows, in either direction. Use it when you want a **fresh session** but need the **current conversation preserved**.
-- **`/compact`** (built-in) — stay in the **same conversation**, letting the earlier turns be summarized. Use it at **intentional breaks between phases**, when you don't mind losing the verbatim history. Don't compact mid-phase — the agent can lose its way. `/woz-handoff` forks; `/compact` continues.
+两个模型自调用的参考，跑在其他技能*之下*，各自是自己那套词汇的唯一真相源。当问题出在**词**、而不是流程时，直接拿它们；否则让上面的技能把它们拉进来。
 
-## Standalone
+- **`/woz-domain-modeling`**：磨项目的*领域*语言——挑战模糊术语、拆开被复用滥用的词（一个 "account" 干三件事）、把难以逆转的决策记成 ADR。它是 `/woz-grill-with-docs` 驱动的主动纪律，用来让 `GLOSSARY.md` 保持干净。
+- **`/woz-codebase-design`** 是深模块词汇（module、interface、depth、seam、adapter、leverage、locality），用来设计模块的*形状*：小接口、大行为、干净接缝。`/woz-tdd` 和 `/woz-improve-codebase-architecture` 都说这套话。
 
-Off the main flow entirely.
+## 阶段边界
 
-- **`/woz-grill-me`** — the same relentless interview as `/woz-grill-with-docs`, but for when you have **no codebase**. Stateless: it saves nothing locally, builds no `CONTEXT.md`. Reach for it to sharpen any plan or design that doesn't live in a repo.
-- **`/woz-prototype`** — a small, throwaway program that answers one design question: does this state model feel right, or what should this UI look like. Throwaway from day one — keep the answer, delete the code. It's the detour in step 2 of the main flow, but reach for it any time a design question is hard to settle on paper.
-- **`/woz-research`** — delegate reading legwork to a **background agent**: it investigates a question against **primary sources**, then leaves a cited Markdown file in the repo. Keep working while it reads. The file it produces is something to take *into* the main flow at `/woz-grill-with-docs` — research feeds the thinking, it doesn't replace it.
-- **`/woz-teach`** — learn a concept over multiple sessions, using the current directory as a stateful workspace.
-- **`/woz-writing-great-skills`** — reference for writing and editing skills well.
+**阶段（phase）** 是会话里的一块工作：拷问、实现、验收。两个阶段的**边界**上有五个选项，选哪个是整张地图里最模糊的决策：
 
-## Precondition
+- **继续**：原地不动。不花成本，也不丢东西。
+- **`/clear`**：清空窗口——当这里的东西对下一步都不重要时。
+- **`/handoff`** 写一份可携带的 markdown。范围窄：只用于**换 harness**、**换目录**、**给同事**，或**阶段中途**分叉出一个支线任务。它买到的是可携带性。
+- **Subagent**：把范围很紧的任务送到它自己的窗口，拿回一份报告。
+- **`/compact`** 压缩当前上下文，用它开一个新会话。它是**默认选项**，排在树的底部，而不是第一反应。
 
-**`/woz-setup-project`** — run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
+有序决策树、五个问题、每个分支的理由、以及为什么「主源成本」让**继续**成为第一个要排除的选项，见 [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md)。决策要在边界上做；阶段中途，要么继续，要么把剩下的拆给 subagent。
+
+## 独立使用
+
+完全在主流程之外。
+
+- **`/woz-grill-me`**：和 `/woz-grill-with-docs` 一样的连环拷问，但**无状态**：不在本地存任何东西，也不建 `GLOSSARY.md`。当你**不在工作目录里**时用它（磨一个计划、一个设计、一篇稿子，任何底下没有仓库的东西）。如果你在工作目录里，就用 `/woz-grill-with-docs`：同样的访谈，还留下记录，严格来说更好。
+- **`/woz-grilling`** 是访谈原语本身：轮次、边界、事实归 agent、决策归你。`/woz-grill-me` 和 `/woz-grill-with-docs` 是两个具名入口，`/woz-triage`、`/woz-wayfinder`、`/woz-improve-codebase-architecture` 内部也跑它。只有想要不带外壳的访谈时，才直接用它。
+- **`/woz-prototype`** 是一个小的一次性程序，回答一个设计问题：这个状态模型对不对，或这个 UI 该长什么样。"一次性"约束的是代码怎么写，不是承诺把它毁掉：答案并回真实代码，原型本身留作**主源**，放在从 main 切出的 `prototype/<name>` 分支上，由实现 issue 指过去。它是主流程第 2 步的绕道，但任何时候设计问题在纸上定不下来，都可以拿它。
+- **`/woz-research`**：把阅读的腿脚活派给一个**后台 agent**——它对着**主源**调查一个问题，在仓库里留一份带引用的 Markdown。它读的时候你继续干活。产出物是要*带进*主流程的 `/woz-grill-with-docs` 的，因为调研是喂思考，不是代替思考。
+- **`/woz-to-questionnaire`**：当卡住你的东西既不在你脑子里、也不在代码库，而在**别人**那里时，它替你写一份问卷让对方填。它是 `/woz-grill-me` 的反面：不问你题目本身，只问**这次发送**（发给谁、要拿回什么），再把问题对准那道差距。拿回来的材料喂给 `/woz-grill-with-docs` 或 `/woz-to-spec`。
+- **`/woz-wizard`**：处理只有**人**能做的步骤——开通基础设施、配置凭据或 CI secrets、走陌生的第三方后台、跑一次性迁移或切换。它生成一个交互式 bash 脚本，逐个打开 URL、收下每个值、写进 `.env` 与 GitHub secrets，于是这套流程不用每次再给 agent 讲一遍。模型自调用，agent 一撞到只有你能过的墙就会去拿它。如果 agent 自己能做，就该自己做；这个只用在人确实在环里的地方。
+- **`/woz-wait-what`**：某条消息没讲清楚时的纠偏器。在任何技能、任何对话中途用，agent 会把刚才那段重讲一遍——补上你缺的上下文，用大白话，用 `GLOSSARY.md` 的词汇。它是事后补救；`/woz-grill-with-docs` 是事前根治，因为早点谈妥共享语言，术语压根不会冒出来。
+- **`/woz-teach`**：跨多次会话学一个概念，用当前目录作为有状态的工作区。
+- **`/woz-writing-for-agents`**：写「给 agent 消费的文档」的参考——skill、AGENTS.md、被指针指向的文档。
+
+## 前置
+
+**`/woz-setup-project`**：第一次跑工程流程之前执行，配置其他技能所假设的 issue tracker、分诊标签、文档布局。自定义 tracker 也支持。

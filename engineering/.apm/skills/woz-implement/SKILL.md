@@ -1,15 +1,17 @@
 ---
 name: woz-implement
-description: "Implement a piece of work based on a spec or set of tickets."
+description: "按 spec 或一组 ticket 实现一块工作。"
 disable-model-invocation: true
 ---
 
-Implement the work described by the user in the spec or tickets.
+实现用户在 spec 或 tickets 里描述的工作。
 
-Use /woz-tdd where possible, at pre-agreed seams.
+如果用户传了 ticket 引用，先从 issue tracker 取回来，开工前报出它的标题。引用有歧义就问。
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+在事先约定的接缝上，尽量调用 Skill 工具执行 `woz-tdd`。
 
-Once done, use /woz-code-review to review the work.
+定期跑类型检查、定期跑单个测试文件，最后完整跑一次全量测试。
 
-Commit your work to the current branch.
+做完后，调用 Skill 工具执行 `woz-code-review` 评审这次工作。
+
+把工作提交到当前分支。

@@ -1,36 +1,38 @@
 ---
 name: woz-tdd
-description: Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
+description: 测试驱动开发。当用户想用测试先行来写功能或修 bug、提到「红-绿-重构」、或想要集成测试时使用。
 ---
 
-# Test-Driven Development
+# 测试驱动开发
 
-TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle — consult them before and during the loop, not after.
+TDD 就是红 → 绿这个循环。这份文档是让这个循环产出「值得留下的测试」的参考：什么是好测试、测试写在哪、反模式、以及循环的规则。每一节在每一轮都适用：在进入循环前和循环中查阅，而不是事后。
 
-When exploring the codebase, read `CONTEXT.md` (if it exists) so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching.
+探索代码库时，读 `GLOSSARY.md`（如果有），让测试名和接口用词与项目的领域语言一致，并遵守你正触及区域的 ADR。
 
-## What a good test is
+## 什么是好测试
 
-Tests verify behavior through public interfaces, not implementation details. Code can change entirely; tests shouldn't. A good test reads like a specification — "user can checkout with valid cart" tells you exactly what capability exists — and survives refactors because it doesn't care about internal structure.
+测试验证的是**行为**，通过**公开接口**，而不是实现细节。代码可以整体重写，测试不该跟着变。好测试读起来像一份规格：`用户可以拿有效购物车下单` 明确告诉你存在什么能力，而且它在重构后依然成立，因为它不关心内部结构。
 
-See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking guidelines.
+例子见 [tests.md](tests.md)，mock 的写法见 [mocking.md](mocking.md)。
 
-## Seams — where tests go
+## 接缝：测试写在哪
 
-A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
+**接缝（seam）** 是你测试所处的公开边界：在那个接口上你能观察行为，而不用把手伸进去。测试住在接缝上，绝不针对内部实现。
 
-**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything — agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+**只在事先约定的接缝上写测试。** 动手写任何测试之前，先写下要测的接缝，并与用户确认。没有确认过的接缝，不写测试。你不可能测遍一切，所以事先约定接缝，正是让测试精力落在关键路径和复杂逻辑上、而不是每个边界情况上的办法。
 
-Ask: "What's the public interface, and which seams should we test?"
+问：「公开接口是什么，我们要测哪些接缝？」给每个提议的接缝配一句话，说明它能抓到什么、漏掉什么。
 
-## Anti-patterns
+当接口本身的形状还有疑问时（模块多深、接缝该在哪、接口该暴露什么），调用 Skill 工具执行 `woz-codebase-design` 拿词汇。它是 module、interface、depth、seam、adapter、leverage、locality 这些词的共享来源，是查的参考，不是要跑的一场会话。
 
-- **Implementation-coupled** — mocks internal collaborators, tests private methods, or verifies through a side channel (querying the database instead of using the interface). The tell: the test breaks when you refactor but behavior hasn't changed.
-- **Tautological** — the assertion recomputes the expected value the way the code does (`expect(add(a, b)).toBe(a + b)`, a snapshot derived by hand the same way, a constant asserted equal to itself), so it passes by construction and can never disagree with the code. Expected values must come from an independent source of truth — a known-good literal, a worked example, the spec.
-- **Horizontal slicing** — writing all tests first, then all implementation. Bulk tests verify _imagined_ behavior: you test the _shape_ of things rather than user-facing behavior, the tests go insensitive to real changes, and you commit to test structure before understanding the implementation. Work in **vertical slices** instead — one test → one implementation → repeat, each test a **tracer bullet** that responds to what the last cycle taught you.
+## 反模式
 
-## Rules of the loop
+- **与实现耦合**：mock 内部协作者、测私有方法、或通过侧信道验证（直接查数据库而不是走接口）。识别信号：行为没变，但一重构测试就挂。
+- **同义反复**：断言用和代码一样的方式重算期望值（`expect(add(a, b)).toBe(a + b)`、手工照同样方式导出的快照、把自己的常量断言成自己），于是它按构造必然通过，永远不可能和代码不一致。期望值必须来自独立的真相源：一个已知正确的字面量、一个手算的例子、或规格。
+- **横向切片**：先把所有测试写完，再写所有实现。批量测试验证的是*想象的*行为：你测的是东西的*形状*而不是面向用户的行为，测试对真实变化变得不敏感，而且你在还没理解实现之前就把测试结构定死了。改成**垂直切片**：一个测试 → 一个实现 → 重复，每个测试都是一颗 **tracer bullet**，并根据上一轮学到的东西调整。
 
-- **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
-- **One slice at a time.** One seam, one test, one minimal implementation per cycle.
-- **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+## 循环规则
+
+- **先红后绿。** 先写失败的测试，再只写够让它通过的代码。不要提前为未来的测试做准备，也不要加投机性功能。
+- **一次一个切片。** 每轮一个接缝、一个测试、一个最小实现。
+- **重构不属于这个循环。** 它属于评审阶段（见 `woz-code-review` 技能），不属于红 → 绿的实现循环。
