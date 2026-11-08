@@ -1,6 +1,6 @@
 # skills
 
-27 个面向工程实战的 agent 技能，正文为中文，全部以 `w-` 开头。派生自 [mattpocock/skills](https://github.com/mattpocock/skills)，译文规范见 [docs/TRANSLATION.md](docs/TRANSLATION.md)。
+27 个面向工程实战的 agent 技能，正文为中文，全部以 `w-` 开头。派生自 [mattpocock/skills](https://github.com/mattpocock/skills)。译文规范写在 [AGENTS.md](AGENTS.md) 里，供维护者与 agent 共用。
 
 ## 安装
 
