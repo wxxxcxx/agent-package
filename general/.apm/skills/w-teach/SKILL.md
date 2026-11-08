@@ -13,8 +13,8 @@ argument-hint: "你想学什么？"
 
 - `MISSION.md`：记录用户对该主题感兴趣的**原因**。所有教学都应以它为依据。格式见 [MISSION-FORMAT.md](./MISSION-FORMAT.md)。
 - `./reference/*.html`：参考资料目录。内容是课程压缩后的收获——速查表、算法参考、语法、瑜伽体式、术语表。这些是学习的基本单元，应是排版精美、适合打印、便于快速查阅的文档。
-- `RESOURCES.md`：资源清单，用于让教学建立在具体知识之上，或用于获取知识与见识。格式见 [RESOURCES-FORMAT.md](./RESOURCES-FORMAT.md)。
-- `./learning-records/*.md`：学习记录目录，记录用户已经学会的内容。它大致相当于软件开发中的架构决策记录：记录可能日后需要修订、或会决定后续课程方向的关键洞见。这些记录用于推算最近发展区。命名格式为 `0001-<dash-case-name>.md`，编号逐次递增。格式见 [LEARNING-RECORD-FORMAT.md](./LEARNING-RECORD-FORMAT.md)。
+- `RESOURCES.md`：资源清单，用于让教学建立在一定背景知识之上，或用于获取知识与见识。格式见 [RESOURCES-FORMAT.md](./RESOURCES-FORMAT.md)。
+- `./learning-records/*.md`：学习记录目录，记录用户已经学会的内容。它大致相当于软件开发中的架构决策记录：记录反直觉的教训与关键洞见——它们可能日后需要修订，或决定后续课程的方向。这些记录用于推算最近发展区。命名格式为 `0001-<dash-case-name>.md`，编号逐次递增。格式见 [LEARNING-RECORD-FORMAT.md](./LEARNING-RECORD-FORMAT.md)。
 - `./lessons/*.html`：课程目录。**课程**是一份自包含的 HTML，只讲一件与使命紧密相关的具体事情。它是本工作区教学的基本单位。
 - `./assets/*`：课程之间复用的**组件**，见[组件](#组件)一节。
 - `NOTES.md`：随手记录用户偏好或工作笔记的地方。
@@ -131,7 +131,7 @@ argument-hint: "你想学什么？"
 - 流程的算法与流程图
 - 瑜伽的体式与序列
 - 健身的动作与训练计划
-- 任何有自身体系的主题所用的术语表
+- 任何拥有自己一套专门术语的主题所用的术语表
 
 术语表尤其重要。一旦建立，此后每节课都应遵循其中的说法。
 

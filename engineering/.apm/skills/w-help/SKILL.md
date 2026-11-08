@@ -24,7 +24,7 @@ disable-model-invocation: true
 3. **分支：这是要跨多个会话的构建吗？**
    - **是** → **`/w-to-spec`**（把线程变成 spec），再用 **`/w-to-tickets`** 拆成 tracer bullet ticket，每张声明自己的**阻塞边**。然后二选一：
      - 逐 ticket 跑 **`/w-implement`**，**每张之间 `/clear` 上下文**。本地 tracker 就是 `.scratch/<feature>/issues/` 下一张一个文件，手工按阻塞顺序做；真 tracker 上这些边会变成原生阻塞链接，任何阻塞已完成的 ticket 都能领。每张 ticket 都是自包含的，所以上一张的上下文可以丢。
-     - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 tickets 当**任务图**读，在就绪的**边界**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
+     - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 tickets 当**任务图**读，在就绪的**前沿**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
    - **否** → 就在**同一个上下文窗口**里跑 **`/w-implement`**。
 
    两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收尾——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 ticket 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
@@ -83,7 +83,7 @@ disable-model-invocation: true
 完全在主流程之外。
 
 - **`/w-grill-me`**：和 `/w-grill-with-docs` 一样的连环拷问，但**无状态**：不在本地存任何东西，也不建 `GLOSSARY.md`。当你**不在工作目录里**时用它（磨一个计划、一个设计、一篇稿子，任何底下没有仓库的东西）。如果你在工作目录里，就用 `/w-grill-with-docs`：同样的访谈，还留下记录，严格来说更好。
-- **`/w-grilling`** 是访谈原语本身：轮次、边界、事实归 agent、决策归你。`/w-grill-me` 和 `/w-grill-with-docs` 是两个具名入口，`/w-triage`、`/w-wayfinder`、`/w-improve-codebase-architecture` 内部也跑它。只有想要不带外壳的访谈时，才直接用它。
+- **`/w-grilling`** 是访谈原语本身：轮次、前沿、事实归 agent、决策归你。`/w-grill-me` 和 `/w-grill-with-docs` 是两个具名入口，`/w-triage`、`/w-wayfinder`、`/w-improve-codebase-architecture` 内部也跑它。只有想要不带外壳的访谈时，才直接用它。
 - **`/w-prototype`** 是一个小的一次性程序，回答一个设计问题：这个状态模型对不对，或这个 UI 该长什么样。"一次性"约束的是代码怎么写，不是承诺把它毁掉：答案并回真实代码，原型本身留作**主源**，放在从 main 切出的 `prototype/<name>` 分支上，由实现 issue 指过去。它是主流程第 2 步的绕道，但任何时候设计问题在纸上定不下来，都可以拿它。
 - **`/w-research`**：把阅读的腿脚活派给一个**后台 agent**——它对着**主源**调查一个问题，在仓库里留一份带引用的 Markdown。它读的时候你继续干活。产出物是要*带进*主流程的 `/w-grill-with-docs` 的，因为调研是喂思考，不是代替思考。
 - **`/w-to-questionnaire`**：当卡住你的东西既不在你脑子里、也不在代码库，而在**别人**那里时，它替你写一份问卷让对方填。它是 `/w-grill-me` 的反面：不问你题目本身，只问**这次发送**（发给谁、要拿回什么），再把问题对准那道差距。拿回来的材料喂给 `/w-grill-with-docs` 或 `/w-to-spec`。

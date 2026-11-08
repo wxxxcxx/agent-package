@@ -34,7 +34,7 @@ description: 生成一个交互式 bash 向导，带着人一步步完成只有�
 
 ### 3. 编写向导
 
-把 `template.sh` 复制到目标路径。用每个步骤一个 `stage` 替换示例阶段，按依赖顺序排。只用库里的辅助函数：`stage`、`say`/`step`、`open_url`、`ask`/`ask_secret`、`write_env`、`set_secret`/`set_var`、`pause`/`confirm`。把 `TOTAL_STAGES` 设成你实际写的阶段数。
+把 `template.sh` 复制到目标路径。用每个步骤一个 `stage` 替换示例阶段，按依赖顺序排。使用库中的辅助函数：`stage`、`say`/`step`、`open_url`、`ask`/`ask_secret`、`write_env`、`set_secret`/`set_var`、`pause`/`confirm`。把 `TOTAL_STAGES` 设成你实际写的阶段数。
 
 按模板设的标准来：要值之前先打开 URL；敏感值一律用 `ask_secret`；每个要写进文件的值都用 `write_env`；只有 CI 真正需要的值才 `set_secret`；任何不可逆动作之前 `confirm`。每个 `stage` 会清屏，只显示当前这一步——一个阶段只干一件事，别让人需要的信息被滚走。**不要碰标记以上的库。**
 

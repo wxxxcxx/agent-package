@@ -1,6 +1,6 @@
 ---
 name: w-wait-what
-description: "停。上一条没讲清楚，重新讲一遍。"
+description: "停。上一条我没接住，重新讲一遍。"
 disable-model-invocation: true
 ---
 

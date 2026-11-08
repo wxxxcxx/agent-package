@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 你拿到了一份 spec，以及归在它下面、描述如何实现的 tickets。
 
-issue tracker 应当已经配置好；如果没有，让用户先跑 `/w-setup-project`。
+issue tracker 应当已经提供给你；如果没有，让用户先跑 `/w-setup-project`。
 
 目标是：**整份 spec 在一个集成分支上实现完毕**，每张 ticket 都按 issue tracker 的关闭方式结束。
 
