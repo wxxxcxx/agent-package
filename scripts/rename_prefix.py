@@ -2,7 +2,7 @@
 """统一改技能前缀：目录名、frontmatter name、交叉引用、prompt 文件名、mapping、lock。
 
 用法：
-    python3 scripts/rename_prefix.py woz- w- [--dry]
+    python3 scripts/rename_prefix.py x- y- [--dry]
 
 name 字段只允许 a-z0-9-，且不能以 - 开头/结尾、不能出现 --，前缀必须满足这些规则。
 """

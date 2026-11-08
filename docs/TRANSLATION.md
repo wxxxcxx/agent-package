@@ -1,6 +1,6 @@
 # 译文规范
 
-适用范围：本仓库所有 `SKILL.md` 正文。英文原文不存于仓库，需要时用 `mattpocock.lock` 中记录的 commit 取回。
+适用范围：本仓库（`wxxxcxx/skills`）所有 `SKILL.md` 正文。英文原文不存于仓库，需要时用 `mattpocock.lock` 中记录的 commit 取回。
 
 ## 基本方针
 

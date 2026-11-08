@@ -1,6 +1,6 @@
-name: woz
+name: skills
 version: 1.2.0
-description: APM project for agent-package
+description: 中文技能包，派生自 mattpocock/skills
 author: W
 targets:
   - claude
