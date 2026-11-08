@@ -57,7 +57,7 @@ disable-model-invocation: true
 
 不是功能开发，是维护。
 
-- **`/w-improve-codebase-architecture`**：有空就跑一次，让代码库保持适合 agent 作业。它挑出**值得合并的地方**；选中一个就*生成一个想法*，可以带进主流程的 `/w-grill-with-docs`。它是找候选的普查；**`/w-codebase-design`**（下）是你设计选中项的工作台。
+- **`/w-improve-codebase-architecture`**：有空就跑一次，让代码库保持适合 agent 作业。它挑出**值得深化的地方**（把浅模块做深）；选中一个就*生成一个想法*，可以带进主流程的 `/w-grill-with-docs`。它是找候选的普查；**`/w-codebase-design`**（下）是你设计选中项的工作台。
 
 ## 底下的词汇层
 
