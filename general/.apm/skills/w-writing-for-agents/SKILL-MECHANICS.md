@@ -7,7 +7,7 @@
 两个选择，交换的是两种负载：
 
 - **模型可调用**的 skill 保留 `description`，agent 能自己触发它，其他 skill 也能调到它。你依然可以手打它的名字：模型调用**始终包含**用户可达；description 只增加 agent 的发现能力，从不剥夺人的调用权。description 是这个 skill 的顶层上下文指针，被迫常驻：用永久的上下文负载换可发现性。内容全是参考的模型可调用 skill，也是共享参考的一个落脚点——别的 skill 能调它，于是多个 skill 共用的参考可以只放一处。机制：不写 `disable-model-invocation`，并写一条面向模型的 description，承载触发分支（`SKILL.md` 里关于指针的写法完全适用）。
-- **用户调用**的 skill 把 description 从 agent 的可及范围里摘掉：只有人打出名字才能调，别的 skill 也调不到。零上下文负载，但它花的是认知负载——**你得当那个记得它存在的索引**。机制：设 `disable-model-invocation: true`；`description` 变成面向人的：一行摘要，去掉触发词列表。
+- **用户调用**的 skill 把 description 从 agent 的可及范围里摘掉，只有人打出名字才能调，别的 skill 也调不到。零上下文负载，但它花的是认知负载——**你得当那个记得它存在的索引**。机制：设 `disable-model-invocation: true`；`description` 变成面向人的：一行摘要，去掉触发词列表。
 
 只有当 agent 必须自己够到它、或别的 skill 必须调用它时，才选模型调用。如果它永远只靠手打，就做成用户调用，一分上下文负载都不用付。
 
