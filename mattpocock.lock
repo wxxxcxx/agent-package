@@ -1,114 +1,114 @@
 upstream: https://github.com/mattpocock/skills
 commit: 4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
 upstream_date: 2026-10-31T14:23:30Z
-synced_at: 2026-11-08T12:04:09Z
+synced_at: 2026-11-08T12:08:08Z
 note: 只记录上游 commit 与文件哈希，不保存英文原文（需要时用 git show 取回）
 skills:
-  woz-code-review:
+  x-code-review:
     upstream: skills/engineering/code-review
     upstream_sha256: 9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd
-    zh_sha256: dcb1fa7cc2adbbefd1ab2b0ef2b49604926c4f92e58bf5b64d7dfe63be2020cf
-  woz-codebase-design:
+    zh_sha256: d165df0c5be419d13c2c216d168ea77ae533d98507e135592a20f77986c98c61
+  x-codebase-design:
     upstream: skills/engineering/codebase-design
     upstream_sha256: 2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2
-    zh_sha256: 487e961c9bd2660504ed39e6a5bbafcf66ea2a088b125741777482281a118733
-  woz-diagnosing-bugs:
+    zh_sha256: 8847b7dc99d45d640ee24bdd16ae1447230d6d6cc34564e0820b16f3971b286c
+  x-diagnosing-bugs:
     upstream: skills/engineering/diagnosing-bugs
     upstream_sha256: 849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d
-    zh_sha256: ca479e1a915840b57e6ee42ec5083bfb27f808ad7cf99316f754a391a0a767fb
-  woz-domain-modeling:
+    zh_sha256: a637bf6e99d317892e7ca9fb2d13f7f6f6546aeddb3a8ffacfe35ac2fc88a3d3
+  x-domain-modeling:
     upstream: skills/engineering/domain-modeling
     upstream_sha256: 7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3
-    zh_sha256: 7c3dcd8fb133460a8ba9b2f25c9324219328249ffa85d511b4290dbb2b8d8525
-  woz-grill-me:
+    zh_sha256: c8046be95e07c95f522a679209c9bedfec16c59ea431b4d8f2a11dccc87a3a84
+  x-grill-me:
     upstream: skills/productivity/grill-me
     upstream_sha256: caaf8b8de1684f96e26b28f3c29189db5c89cce4b73e1c93d86164f66ef88637
-    zh_sha256: 0c2aa1d5edb65d58f42d96f10ad60e9fd6a0aad996f3692e134d31f7d566f2fc
-  woz-grill-with-docs:
+    zh_sha256: a8b7301e6be9675cff503f23725f88adbf039e73354e37163bcdfdf707f67332
+  x-grill-with-docs:
     upstream: skills/engineering/grill-with-docs
     upstream_sha256: 7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe
-    zh_sha256: 0aa12b6e1659fd3304bade3b70d078c31fcb6b812e24a2e852e80162fef25723
-  woz-grilling:
+    zh_sha256: 905c3ac82a56793ba958e9d241292404afecfc8872615b9cd999b3d2b14fc142
+  x-grilling:
     upstream: skills/productivity/grilling
     upstream_sha256: a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2
-    zh_sha256: 4274aca940d9422b757519b7e9d37024ea33976b00cb1cba0c1abb87a51ec79f
-  woz-handoff:
+    zh_sha256: b3f6f0d7ad0e7347658cae75a5c821ff155fcfd628ed122b66a55a288472527c
+  x-handoff:
     upstream: skills/productivity/handoff
     upstream_sha256: 4cbb043950dad2ffd3662ff1a5a0b51ae676004b5cae10e3787e8ee7a4ee69d3
-    zh_sha256: eb49663973c2cf19a4e332bda1aacb5769b710079ddebb135576f47f1cbd0952
-  woz-help:
+    zh_sha256: 0b66edc1dd20772dda845ee368f637835b69f4fabb91320b7670b78d1f507993
+  x-help:
     upstream: skills/engineering/ask-matt
     upstream_sha256: 1371f5ce005de0992a44b137748bfb960a56948aa9871b405fe9d90b24332e3c
-    zh_sha256: 2b65997db3cda06c4af20ca7bda59187eaf0a11e1352cd15e0c535abfcdadf9b
-  woz-implement:
+    zh_sha256: 430df418923b712263648904e778aabcf3ebee711f6457e8c5da6585e9de8e89
+  x-implement:
     upstream: skills/engineering/implement
     upstream_sha256: 483bdc4ccf4ac31d86ac7beeaa0d0db80313e71e120bb8c59b3196ae5decd53d
-    zh_sha256: bc37e5c2351bb84913d0f3d5b15e564d45865c6e3d1d060b6c3189125ccc07d7
-  woz-implement-spec:
+    zh_sha256: c59a3c707e8355575330b79aaf09df9bb5f9dc08ac221ac62e1518948273aeaf
+  x-implement-spec:
     upstream: skills/engineering/implement-spec
     upstream_sha256: 1993a473cec40ac85d081c112cdffdc63ec3267c2e412055ad09e013a2f623d1
-    zh_sha256: 41a9cc2796f110678a8bb602a15d8a3900c22f9456df1597b2f001827b495cb3
-  woz-improve-codebase-architecture:
+    zh_sha256: 4af99548d89fe59f0021c9a687d7616ced033183fca0bf8a222eedeb1473da26
+  x-improve-codebase-architecture:
     upstream: skills/engineering/improve-codebase-architecture
     upstream_sha256: 35b03a3db61e0f5aa333ea59b54963e45a3d2ace6649b2ef4f9576603e2582a6
-    zh_sha256: 7517d02514ff595383b6b9721a7d6cc6460d377717d300f6af5c5d67ac29e7d7
-  woz-pr:
+    zh_sha256: fa48c3c0b39bac807acbe89a2bab16a393f0a4202e9cb64ba8b0d82919f1a310
+  x-pr:
     upstream: skills/engineering/pr
     upstream_sha256: ab63f1cf78647389edcd386c9427c5dfca27ed2836930c24773ffee834c19bcd
-    zh_sha256: 0566f5bf0b5a7abc9c60669ad54a7f1b40fa14fd3515bc41dd37b9b1c7cad1da
-  woz-prototype:
+    zh_sha256: 4c59a4528de11989b15f80f55b1ef32f0f9441a7a376c4da191bd1e947666513
+  x-prototype:
     upstream: skills/engineering/prototype
     upstream_sha256: 714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3
-    zh_sha256: 75aff21c89b8f4bdd009af3774f86c056e92b839c90f1cc61815add97fc6652a
-  woz-research:
+    zh_sha256: 58cfaa3caf02679eb353f069ee42e1461fa115343563a1925ea87aed6ab32203
+  x-research:
     upstream: skills/engineering/research
     upstream_sha256: 1f629e18ab899412683bc6a1c4efb4339999e27c2fdac328f26ee10a8c031d33
-    zh_sha256: 7075738c8b04763470a389f433448ffa5b7458514124c96e3c327c3ad5799264
-  woz-retro:
+    zh_sha256: d89a0b3ed987f61ce4726e53fbb54cc5b160c80ee5047566685169cdfd80a3da
+  x-retro:
     upstream: skills/engineering/retro
     upstream_sha256: 33fbc28568e3146f20fd908b12998bc0ab30aa4f4c87288199a40793efa94696
-    zh_sha256: 6d56ca9e5ee434a389c30b0386373a7c7e67d5309d3a2286511dd455dfc4bb04
-  woz-setup-project:
+    zh_sha256: 48d7f661eade2b322d4fbb5b9bb9643a6221655689e7de7aa085e5a62c929a15
+  x-setup-project:
     upstream: skills/engineering/setup-matt-pocock-skills
     upstream_sha256: b01e05bfe8c323171275c6ceec78b12f1bd4c62dfd26c2cfe8be806d3883f1ed
-    zh_sha256: 1815fb1eb7d91ed9612465def4377df39a227c91949c23010f40a32e53b00e88
-  woz-tdd:
+    zh_sha256: 02813d441cac86c92ee79974d105e7a8ff04fc80feda99396d9060106e9ce2ca
+  x-tdd:
     upstream: skills/engineering/tdd
     upstream_sha256: 5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0
-    zh_sha256: 7b1d6c867fcfb79eabe3fa76700df33bddfeb4fbb259bb382b6daa52f37d5ce1
-  woz-teach:
+    zh_sha256: f881ee961658f305b8ccaaf0e59b2617242051008545f75b569ecc2b46982934
+  x-teach:
     upstream: skills/productivity/teach
     upstream_sha256: 550482c2d674b085c9043b87bfdc14a8f2ec453c736119e7fcbb1e9332bffeba
-    zh_sha256: d71e2168a66e8ac5b5b411dbf410645bec24179a67ee286c2520538c1c3cc1d4
-  woz-to-questionnaire:
+    zh_sha256: fc1087831c00a6d91b10728d592082938f3ac226c6b607aaf3501d0c6c650ab8
+  x-to-questionnaire:
     upstream: skills/productivity/to-questionnaire
     upstream_sha256: b5eb929842ee0e93d867c5e906d183d350f2f2d149eaeaa86967d94d8eda1d3b
-    zh_sha256: 720eb2b9902950658db8a29301100f61e2a7d133b2b54eadff02288be6e81471
-  woz-to-spec:
+    zh_sha256: 89cce15547611b4b60a9c389d39bf33c62c78981ec98f9c4dbf88587981a9193
+  x-to-spec:
     upstream: skills/engineering/to-spec
     upstream_sha256: 43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088
-    zh_sha256: a07fa037ea0fd973eb6c87ce7d345f3c383a7c21e740632db0c2bfe6bcd08953
-  woz-to-tickets:
+    zh_sha256: d17e56e16dcfce7a0b81e8de185dd94c55d647d15fbba06def14bbc788c1dfea
+  x-to-tickets:
     upstream: skills/engineering/to-tickets
     upstream_sha256: 56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995
-    zh_sha256: 0601e5ac2832d2e6b7186aba9ce295b5495fdecab4a7c34d11d262af5bfd188e
-  woz-triage:
+    zh_sha256: fca99cf5dbc30f74699845a1a61c431c8b4b34d06b7bab8b474186b76973802e
+  x-triage:
     upstream: skills/engineering/triage
     upstream_sha256: 917b0baf74be583e74f110857ed45df2766617f75c00baf61fd136d7af515edf
-    zh_sha256: 01b436bee3db19216fb50ad1eb34a292caf4d661b36d6404a3dd76caab769cae
-  woz-wait-what:
+    zh_sha256: f0f1c230ddd0e99d25ea21e0d04f3d8c8e38831e405f7a4f4722c611b6f3485f
+  x-wait-what:
     upstream: skills/productivity/wait-what
     upstream_sha256: d961bb37defd975c539427edb8f450cdbccdcdd552e213c1ece46676a7970905
-    zh_sha256: b1808ebe168d602f912d32d6517687cbdc3a6d9a99740a20cd53e4d203b979cb
-  woz-wayfinder:
+    zh_sha256: a37ba917c8a8c2718f112af5a85dce9b59a074949c137814308ce17f4f52ae7b
+  x-wayfinder:
     upstream: skills/engineering/wayfinder
     upstream_sha256: 0c9fa96791aebf3b7d654cf35c6aadde97d81f57c17b07d13b27c14d9c46561f
-    zh_sha256: 90948426525c24ade68672c5ed94d6d09f21f652c5f1191fff28e7a8903abff3
-  woz-wizard:
+    zh_sha256: 03eb1161545ce39138e8c93135a2af5f9727f342314ca7dde82bda0c6924d55e
+  x-wizard:
     upstream: skills/engineering/wizard
     upstream_sha256: bdf31d48211ea559878f95a4f344aeabf8d85897488ba564382bab0b000daac1
-    zh_sha256: 8e261e881054de53d40391b12683fdad3a67a8d96c3da36da30927f8a4697b29
-  woz-writing-for-agents:
+    zh_sha256: 5770fa67be3c339a1cb1c4a7b07caa1e7f8fed68b33504c6e496d1f74c16dd2f
+  x-writing-for-agents:
     upstream: skills/productivity/writing-for-agents
     upstream_sha256: 551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a
-    zh_sha256: f2bf816bfb8755c7ff00db804960369de5f0a91e732f8abc95b53afc8aed695c
+    zh_sha256: 7e1bf75b9189302382785c3c3000b8e38d719269eb9395f47fba5107167ff487

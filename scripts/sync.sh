@@ -10,8 +10,8 @@ set -euo pipefail
 UPSTREAM_URL="https://github.com/mattpocock/skills"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOCK="$REPO_ROOT/mattpocock.lock"
-STAGE_DIR="${TMPDIR:-/tmp}/woz-sync-stage"
-WORK="${TMPDIR:-/tmp}/woz-upstream.git"
+STAGE_DIR="${TMPDIR:-/tmp}/x-sync-stage"
+WORK="${TMPDIR:-/tmp}/x-upstream.git"
 
 MODE="${1:---report}"
 
