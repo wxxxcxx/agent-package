@@ -23,7 +23,7 @@ TDD 的循环只有两步：先红，后绿。本文说明如何让这个循环�
 
 问：「公开接口是什么，我们要测哪些接缝？」给每个提议的接缝配一句话，说明它能抓到什么、漏掉什么。
 
-当接口本身的形状还有疑问时（模块多深、接缝该在哪、接口该暴露什么），调用 Skill 工具执行 `x-codebase-design` 获取术语。它是 module、interface、depth、seam、adapter、leverage、locality 这些词的共享来源，是查的参考，不是要跑的一场会话。
+当接口本身的形状还有疑问时（模块多深、接缝该在哪、接口该暴露什么），调用 Skill 工具执行 `x-codebase-design` 获取术语。module、interface、depth、seam、adapter、leverage、locality 这些词的统一定义都在那里；只取词即可，不必真的跑一场会话。
 
 ## 反模式
 
