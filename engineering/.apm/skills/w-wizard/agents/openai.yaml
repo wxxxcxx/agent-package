@@ -1,0 +1,3 @@
+interface:
+  display_name: "Wizard"
+  short_description: "生成交互式 bash 向导，带人走手工步骤"
