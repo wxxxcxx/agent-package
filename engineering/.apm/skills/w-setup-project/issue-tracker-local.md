@@ -27,4 +27,4 @@
 - **阻塞**：顶部附近的 `Blocked by: NN, NN` 行。所列文件全部为 `resolved` 时，该工单解除阻塞
 - **前沿**：扫描 `.scratch/<effort>/issues/`，取未关闭、未阻塞、未被认领的文件，编号最小者优先
 - **认领**：动工前先写 `Status: claimed` 并保存
-- **解决**：在 `## Answer` 标题下追加答案，置 `Status: resolved`，再把一条说明（摘要加链接）追加到 `map.md` 的 Decisions-so-far
+- **解决**：在 `## Answer` 标题下追加答案，置 `Status: resolved`，再把一条上下文指针（摘要加链接）追加到 `map.md` 的 Decisions-so-far
