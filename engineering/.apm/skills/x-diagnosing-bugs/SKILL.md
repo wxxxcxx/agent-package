@@ -1,134 +1,136 @@
 ---
 name: x-diagnosing-bugs
-description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
+description: 疑难缺陷与性能回归的诊断流程。用户说「诊断」「调试一下」，或报告某处损坏、抛错、失败、变慢时使用。
 ---
 
-# Diagnosing Bugs
+# 缺陷诊断
 
-A discipline for hard bugs. Skip phases only when explicitly justified.
+一套针对疑难缺陷的纪律。只有在给出明确理由时才可跳过某个阶段。
 
-When exploring the codebase, read `GLOSSARY.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
+探索代码库时，读 `GLOSSARY.md`（若存在）以形成相关模块的清晰认识，并查阅所涉区域的 ADR。
 
-## Phase 1 — Build a feedback loop
+## 脱敏
 
-**This is the skill.** Everything else is mechanical. If you have a **tight** pass/fail signal for the bug — one that goes red on _this_ bug — you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.
+本技能要求你展示命令、输出与抓取到的产物。**先对每一处密钥脱敏**，替换为 `<REDACTED>`。反馈回路应当通过环境变量取值，使凭据留在环境中，而不出现在你展示的内容里。抓取到的产物往往带认证头：只引用承载信号的那几行。
 
-Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
+若脱敏后的输出不足以诊断，直接说明，并向用户索取。
 
-### Ways to construct one — try them in roughly this order
+## 阶段 1：建立反馈回路
 
-1. **Failing test** at whatever seam reaches the bug — unit, integration, e2e.
-2. **Curl / HTTP script** against a running dev server.
-3. **CLI invocation** with a fixture input, diffing stdout against a known-good snapshot.
-4. **Headless browser script** (Playwright / Puppeteer) — drives the UI, asserts on DOM/console/network.
-5. **Replay a captured trace.** Save a real network request / payload / event log to disk; replay it through the code path in isolation.
-6. **Throwaway harness.** Spin up a minimal subset of the system (one service, mocked deps) that exercises the bug code path with a single function call.
-7. **Property / fuzz loop.** If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
-8. **Bisection harness.** If the bug appeared between two known states (commit, dataset, version), automate "boot at state X, check, repeat" so you can `git bisect run` it.
-9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
-10. **HITL bash script.** Last resort. If a human must click, drive _them_ with `scripts/hitl-loop.template.sh` so the loop is still structured. Captured output feeds back to you.
+**这一阶段就是本技能的核心**，其余都是机械劳动。只要有一个**紧的**、能对该缺陷变红的通过／失败信号，就必然能找到原因；二分、假设检验、插桩都只是它的消费者。没有这样的信号，盯着代码看再久也无济于事。
 
-Build the right feedback loop, and the bug is 90% fixed.
+在此投入不成比例的精力。**要激进，要取巧，不许放弃。**
 
-### Tighten the loop
+### 构造信号的方式，大致按此顺序
 
-Treat the loop as a product. Once you have _a_ loop, **tighten** it:
+1. **失败的测试**：选一个能触及该缺陷的接缝，单元、集成、端到端皆可
+2. **curl 或 HTTP 脚本**：打向正在运行的开发服务器
+3. **命令行调用**：喂入固定输入，把 stdout 与已知正确的快照做 diff
+4. **无头浏览器脚本**（Playwright／Puppeteer）：驱动界面，对 DOM、控制台、网络做断言
+5. **重放抓取到的轨迹**：把真实的网络请求、载荷或事件日志存到磁盘，再在隔离环境中沿该代码路径重放
+6. **一次性最小宿主**：只起系统的一小部分（单个服务、mock 掉依赖），用一次函数调用走通出问题的代码路径
+7. **属性／模糊测试循环**：若是「输出有时正确有时错」，跑 1000 组随机输入，找出失效模式
+8. **二分宿主**：若缺陷出现在两个已知状态之间（提交、数据集、版本），把「以状态 X 启动并检查」自动化，使其可交给 `git bisect run`
+9. **差分循环**：同一输入分别走旧版本与新版本（或两套配置），比较输出
+10. **人机协作 bash 脚本**：最后的办法。必须由人点击时，用 `scripts/hitl-loop.template.sh` 去驱动**人**，使回路仍然有结构，抓取到的输出再回传给你
 
-- Can I make it faster? (Cache setup, skip unrelated init, narrow the test scope.)
-- Can I make the signal sharper? (Assert on the specific symptom, not "didn't crash".)
-- Can I make it more deterministic? (Pin time, seed RNG, isolate filesystem, freeze network.)
+选对反馈回路，缺陷已解决九成。
 
-A 30-second flaky loop is barely better than no loop; a 2-second deterministic one is tight — a debugging superpower.
+### 把回路收紧
 
-### Non-deterministic bugs
+把回路当作产品来做。一旦**有了**回路，就**收紧**它：
 
-The goal is not a clean repro but a **higher reproduction rate**. Loop the trigger 100×, parallelise, add stress, narrow timing windows, inject sleeps. A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it's debuggable.
+- 能否更快（缓存初始化、跳过无关启动、缩小测试范围）
+- 能否让信号更锐利（断言那个具体症状，而不是「没有崩溃」）
+- 能否更确定（固定时间、固定随机种子、隔离文件系统、冻结网络）
 
-### When you genuinely cannot build a loop
+一个 30 秒且时灵时不灵的回路，比没有回路好不了多少；一个 2 秒且确定复现的回路，是调试的超级武器。
 
-Stop and say so explicitly. List what you tried. Ask the user for: (a) access to whatever environment reproduces it, (b) a captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. Do **not** proceed to hypothesise without a loop.
+### 非确定性缺陷
 
-### Completion criterion — a tight loop that goes red
+目标不是干净复现，而是**提高复现率**。把触发动作循环 100 次、并行跑、加压、缩窄时间窗、注入 sleep。50% 概率复现的缺陷可以调试，1% 的不行；持续提高复现率，直到可调试为止。
 
-Phase 1 is done when the loop is **tight** and **red-capable**: you can name **one command** — a script path, a test invocation, a curl — that you have **already run at least once** (paste the invocation and its output), and that is:
+### 确实建立不了回路时
 
-- [ ] **Red-capable** — it drives the actual bug code path and asserts the **user's exact symptom**, so it can go red on this bug and green once fixed. Not "runs without erroring" — it must be able to _catch this specific bug_.
-- [ ] **Deterministic** — same verdict every run (flaky bugs: a pinned, high reproduction rate, per above).
-- [ ] **Fast** — seconds, not minutes.
-- [ ] **Agent-runnable** — you can run it unattended; a human in the loop only via `scripts/hitl-loop.template.sh`.
+停下来，明确说明。列出你试过的办法。向用户索取：(a) 能复现该问题的环境访问权限；(b) 一份脱敏后的抓取产物（HAR 文件、日志转储、core dump、带时间戳的录屏）；或 (c) 在生产环境添加临时插桩的许可。**不要**在没有回路的情况下转入假设。
 
-If you catch yourself reading code to build a theory before this command exists, **stop — jumping straight to a hypothesis is the exact failure this skill prevents.** No red-capable command, no Phase 2.
+### 完成标准：一条会变红的紧回路
 
-## Phase 2 — Reproduce + minimise
+阶段 1 结束的条件是回路**紧**且**能变红**：你能说出**一条命令**（脚本路径、测试调用、curl），它**至少已运行过一次**（展示调用方式与输出，已脱敏），并且满足：
 
-Run the loop. Watch it go red — the bug appears.
+- [ ] **能变红**：走的是真实的缺陷代码路径，断言的是**用户描述的那个症状**，因此能对该缺陷变红、修复后变绿。不是「运行时不出错」，而是能**抓住这个特定缺陷**
+- [ ] **确定**：每次运行的结论相同（对应非确定性缺陷，则是按上文固定的高复现率）
+- [ ] **快**：秒级，而非分钟级
+- [ ] **agent 可运行**：能无人值守地跑；需要人介入时只通过 `scripts/hitl-loop.template.sh`
 
-Confirm:
+如果在上述命令诞生之前，你发现自己正在读代码构建理论，**停下：直接跳到假设，正是本技能要防止的失败。** 没有能变红的命令，就不进入阶段 2。
 
-- [ ] The loop produces the failure mode the **user** described — not a different failure that happens to be nearby. Wrong bug = wrong fix.
-- [ ] The failure is reproducible across multiple runs (or, for non-deterministic bugs, reproducible at a high enough rate to debug against).
-- [ ] You have captured the exact symptom (error message, wrong output, slow timing) so later phases can verify the fix actually addresses it.
+## 阶段 2：复现并最小化
 
-### Minimise
+运行回路，看着它在缺陷出现时变红。确认：
 
-Once it's red, shrink the repro to the **smallest scenario that still goes red**. Cut inputs, callers, config, data, and steps **one at a time**, re-running the loop after each cut — keep only what's load-bearing for the failure.
+- [ ] 回路产生的失效模式是**用户**描述的那个，而不是碰巧邻近的另一个失效。搞错缺陷，就会修错地方
+- [ ] 失效可跨多次运行复现（非确定性缺陷则需达到足以调试的复现率）
+- [ ] 已记录确切症状（错误信息、错误输出、异常耗时），以便后续阶段验证修复确实解决了它
 
-Why bother: a minimal repro shrinks the hypothesis space in Phase 3 (fewer moving parts left to suspect) and becomes the clean regression test in Phase 5.
+### 最小化
 
-Done when **every remaining element is load-bearing** — removing any one of them makes the loop go green.
+变红之后，把复现收缩到**仍会变红的最小场景**：输入、调用方、配置、数据、步骤**逐项削减**，每削减一项就重跑回路，只保留对失效起关键作用的部分。
 
-Do not proceed until you have reproduced **and** minimised.
+意义在于：最小复现缩小阶段 3 的假设空间（可疑的部件更少），并直接成为阶段 5 的回归测试。
 
-## Phase 3 — Hypothesise
+完成标准是**剩余的每个元素都是必要的**：去掉其中任何一个，回路就变绿。
 
-Generate **3–5 ranked hypotheses** before testing any of them. Single-hypothesis generation anchors on the first plausible idea.
+在完成复现**与**最小化之前，不要继续。
 
-Each hypothesis must be **falsifiable**: state the prediction it makes.
+## 阶段 3：提出假设
 
-> Format: "If <X> is the cause, then <changing Y> will make the bug disappear / <changing Z> will make it worse."
+在验证任何一个之前，先给出 **3 到 5 个按可信度排序的假设**。只提出一个假设，会让思维锚定在第一个看似合理的想法上。
 
-If you cannot state the prediction, the hypothesis is a vibe — discard or sharpen it.
+每个假设都必须**可证伪**：说明它作出的预测。
 
-**Show the ranked list to the user before testing.** They often have domain knowledge that re-ranks instantly ("we just deployed a change to #3"), or know hypotheses they've already ruled out. Cheap checkpoint, big time saver. Don't block on it — proceed with your ranking if the user is AFK.
+> 格式：「若 <X> 是原因，则 <改变 Y> 会使缺陷消失，<改变 Z> 会使其加重。」
 
-## Phase 4 — Instrument
+若说不出预测，这个假设只是感觉，应当丢弃或打磨。
 
-Each probe must map to a specific prediction from Phase 3. **Change one variable at a time.**
+**测试之前，把排序后的清单给用户看。** 用户常掌握能立刻改变排序的领域知识（「我们刚给第 3 项相关的东西发布过改动」），或已知某些假设已被排除。这是廉价的检查点，却能省下大量时间。不要卡在这里等：用户不在时按你的排序继续。
 
-Tool preference:
+## 阶段 4：插桩
 
-1. **Debugger / REPL inspection** if the env supports it. One breakpoint beats ten logs.
-2. **Targeted logs** at the boundaries that distinguish hypotheses.
-3. Never "log everything and grep".
+每个探针都要对应阶段 3 的某个具体预测。**一次只改一个变量。**
 
-**Tag every debug log** with a unique prefix, e.g. `[DEBUG-a4f2]`. Cleanup at the end becomes a single grep. Untagged logs survive; tagged logs die.
+工具优先级：
 
-**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second.
+1. **调试器／REPL 检查**：环境支持时首选。一个断点胜过十条日志
+2. **定点日志**：打在最能区分各假设的边界上
+3. 绝不「全量打日志再 grep」
 
-## Phase 5 — Fix + regression test
+**给每条调试日志加上唯一前缀**，例如 `[DEBUG-a4f2]`，收尾时一次 grep 即可清除。没有前缀的日志会残留，带前缀的才清得干净。
 
-Write the regression test **before the fix** — but only if there is a **correct seam** for it.
+**性能分支。** 面对性能回归，日志通常无效。正确做法是：先建立基线测量（计时工具、`performance.now()`、profiler、查询计划），再做二分。先测量，后修复。
 
-A correct seam is one where the test exercises the **real bug pattern** as it occurs at the call site. If the only available seam is too shallow (single-caller test when the bug needs multiple callers, unit test that can't replicate the chain that triggered the bug), a regression test there gives false confidence.
+## 阶段 5：修复并补回归测试
 
-**If no correct seam exists, that itself is the finding.** Note it. The codebase architecture is preventing the bug from being locked down. Flag this for the next phase.
+**先写回归测试，再动手修复**，前提是存在**正确的接缝**。
 
-If a correct seam exists:
+所谓正确的接缝，指测试能够复现缺陷在调用现场实际发生的样子。若可用的接缝过浅（需要多个调用方才能触发，却只有一个单调用方测试；单元测试无法重建触发缺陷的调用链），在此处补测试只会带来虚假的安全感。
 
-1. Turn the minimised repro into a failing test at that seam.
-2. Watch it fail.
-3. Apply the fix.
-4. Watch it pass.
-5. Re-run the Phase 1 feedback loop against the original (un-minimised) scenario.
+**若不存在正确的接缝，这本身就是结论。** 记录下来：代码库的架构使得该缺陷无法被锁住。把这点留给下一阶段。
 
-## Phase 6 — Cleanup + post-mortem
+存在正确接缝时：
 
-Required before declaring done:
+1. 把最小复现改写成该接缝上的失败测试
+2. 观察它失败。若失败是通过改动代码或测试夹具强行造出来的，先与原始副本 `diff`，证明确实改到了位，再采信这个结果
+3. 施加修复
+4. 观察它通过
+5. 用阶段 1 的回路重跑原始（未最小化的）场景
 
-- [ ] Original repro no longer reproduces (re-run the Phase 1 loop)
-- [ ] Regression test passes (or absence of seam is documented)
-- [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
-- [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
-- [ ] The hypothesis that turned out correct is stated in the commit / PR message — so the next debugger learns
+## 阶段 6：收尾
 
-**Then ask: what would have prevented this bug?** If the answer involves architectural change (no good test seam, tangled callers, hidden coupling) hand off to the `/x-improve-codebase-architecture` skill with the specifics. Make the recommendation **after** the fix is in, not before — you have more information now than when you started.
+宣布完成之前必须逐项确认：
+
+- [ ] 原始复现不再出现（重跑阶段 1 的回路）
+- [ ] 回归测试通过（或已记录接缝缺失）
+- [ ] 所有 `[DEBUG-...]` 插桩已移除（按前缀 grep）
+- [ ] 一次性原型已删除，或移入明确标注的调试位置
+- [ ] 最终成立的假设已写进提交信息或 PR 描述，使下一位调试者从中受益

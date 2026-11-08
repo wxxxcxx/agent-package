@@ -1,7 +1,7 @@
 upstream: https://github.com/mattpocock/skills
 commit: 4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
 upstream_date: 2026-10-31T14:23:30Z
-synced_at: 2026-11-08T12:08:08Z
+synced_at: 2026-11-08T12:10:21Z
 note: 只记录上游 commit 与文件哈希，不保存英文原文（需要时用 git show 取回）
 skills:
   x-code-review:
@@ -11,15 +11,15 @@ skills:
   x-codebase-design:
     upstream: skills/engineering/codebase-design
     upstream_sha256: 2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2
-    zh_sha256: 8847b7dc99d45d640ee24bdd16ae1447230d6d6cc34564e0820b16f3971b286c
+    zh_sha256: f75b85095d12a306a000ea67f0fc14a54055351a90f6391a9b33c8b74e25542f
   x-diagnosing-bugs:
     upstream: skills/engineering/diagnosing-bugs
     upstream_sha256: 849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d
-    zh_sha256: a637bf6e99d317892e7ca9fb2d13f7f6f6546aeddb3a8ffacfe35ac2fc88a3d3
+    zh_sha256: 133246a7427fb0f6d7a568d5a040b5eaccc675d3203ca71d2302a39d5ea0f928
   x-domain-modeling:
     upstream: skills/engineering/domain-modeling
     upstream_sha256: 7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3
-    zh_sha256: c8046be95e07c95f522a679209c9bedfec16c59ea431b4d8f2a11dccc87a3a84
+    zh_sha256: 5d1ebc8a25f63f9b848c91f1f8e9fdd6e9f5488733d964e275d0e928af15f537
   x-grill-me:
     upstream: skills/productivity/grill-me
     upstream_sha256: caaf8b8de1684f96e26b28f3c29189db5c89cce4b73e1c93d86164f66ef88637
@@ -51,7 +51,7 @@ skills:
   x-improve-codebase-architecture:
     upstream: skills/engineering/improve-codebase-architecture
     upstream_sha256: 35b03a3db61e0f5aa333ea59b54963e45a3d2ace6649b2ef4f9576603e2582a6
-    zh_sha256: fa48c3c0b39bac807acbe89a2bab16a393f0a4202e9cb64ba8b0d82919f1a310
+    zh_sha256: 3059b3a76c27836f32c0023c7ac782dcaab6b4fe761c07b82df2b388838da178
   x-pr:
     upstream: skills/engineering/pr
     upstream_sha256: ab63f1cf78647389edcd386c9427c5dfca27ed2836930c24773ffee834c19bcd
