@@ -1,13 +1,13 @@
 upstream: https://github.com/mattpocock/skills
 commit: 4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
 upstream_date: 2026-10-31T14:23:30Z
-synced_at: 2026-11-08T11:49:43Z
+synced_at: 2026-11-08T12:04:09Z
 note: 只记录上游 commit 与文件哈希，不保存英文原文（需要时用 git show 取回）
 skills:
   woz-code-review:
     upstream: skills/engineering/code-review
     upstream_sha256: 9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd
-    zh_sha256: 3b7a90497cfce879eda6dceb985a753c6a2979c716b3472c7fea92f66531aafd
+    zh_sha256: dcb1fa7cc2adbbefd1ab2b0ef2b49604926c4f92e58bf5b64d7dfe63be2020cf
   woz-codebase-design:
     upstream: skills/engineering/codebase-design
     upstream_sha256: 2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2
@@ -39,7 +39,7 @@ skills:
   woz-help:
     upstream: skills/engineering/ask-matt
     upstream_sha256: 1371f5ce005de0992a44b137748bfb960a56948aa9871b405fe9d90b24332e3c
-    zh_sha256: 16582c0e158ef2080329f46dd1c00ccf714e9926b1c13b031be1bccf19db156c
+    zh_sha256: 2b65997db3cda06c4af20ca7bda59187eaf0a11e1352cd15e0c535abfcdadf9b
   woz-implement:
     upstream: skills/engineering/implement
     upstream_sha256: 483bdc4ccf4ac31d86ac7beeaa0d0db80313e71e120bb8c59b3196ae5decd53d
@@ -75,7 +75,7 @@ skills:
   woz-tdd:
     upstream: skills/engineering/tdd
     upstream_sha256: 5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0
-    zh_sha256: 1dd430204ff8632a6453c62f58196e5224007bb032d8356dc06f089dbb49c071
+    zh_sha256: 7b1d6c867fcfb79eabe3fa76700df33bddfeb4fbb259bb382b6daa52f37d5ce1
   woz-teach:
     upstream: skills/productivity/teach
     upstream_sha256: 550482c2d674b085c9043b87bfdc14a8f2ec453c736119e7fcbb1e9332bffeba
@@ -91,11 +91,11 @@ skills:
   woz-to-tickets:
     upstream: skills/engineering/to-tickets
     upstream_sha256: 56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995
-    zh_sha256: af31f372d57c7855cfca7714a39f024d6fa84b0ab5449c30cd017621b1b1c967
+    zh_sha256: 0601e5ac2832d2e6b7186aba9ce295b5495fdecab4a7c34d11d262af5bfd188e
   woz-triage:
     upstream: skills/engineering/triage
     upstream_sha256: 917b0baf74be583e74f110857ed45df2766617f75c00baf61fd136d7af515edf
-    zh_sha256: 3603cb9906c01270cef3ac71a28b836e82c21f957cc461be084bbba0ca4b0ead
+    zh_sha256: 01b436bee3db19216fb50ad1eb34a292caf4d661b36d6404a3dd76caab769cae
   woz-wait-what:
     upstream: skills/productivity/wait-what
     upstream_sha256: d961bb37defd975c539427edb8f450cdbccdcdd552e213c1ece46676a7970905

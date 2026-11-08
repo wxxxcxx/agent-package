@@ -61,7 +61,7 @@ disable-model-invocation: true
 
 ## 底下的词汇层
 
-两个模型自调用的参考，跑在其他技能*之下*，各自是自己那套词汇的唯一真相源。当问题出在**词**、而不是流程时，直接拿它们；否则让上面的技能把它们拉进来。
+两个模型自调用的参考文档，位于其他技能*之下*，各自是该套词汇的唯一来源。当问题出在**词**、而不是流程时，直接拿它们；否则让上面的技能把它们拉进来。
 
 - **`/woz-domain-modeling`**：磨项目的*领域*语言——挑战模糊术语、拆开被复用滥用的词（一个 "account" 干三件事）、把难以逆转的决策记成 ADR。它是 `/woz-grill-with-docs` 驱动的主动纪律，用来让 `GLOSSARY.md` 保持干净。
 - **`/woz-codebase-design`** 是深模块词汇（module、interface、depth、seam、adapter、leverage、locality），用来设计模块的*形状*：小接口、大行为、干净接缝。`/woz-tdd` 和 `/woz-improve-codebase-architecture` 都说这套话。
@@ -90,7 +90,7 @@ disable-model-invocation: true
 - **`/woz-wizard`**：处理只有**人**能做的步骤——开通基础设施、配置凭据或 CI secrets、走陌生的第三方后台、跑一次性迁移或切换。它生成一个交互式 bash 脚本，逐个打开 URL、收下每个值、写进 `.env` 与 GitHub secrets，于是这套流程不用每次再给 agent 讲一遍。模型自调用，agent 一撞到只有你能过的墙就会去拿它。如果 agent 自己能做，就该自己做；这个只用在人确实在环里的地方。
 - **`/woz-wait-what`**：某条消息没讲清楚时的纠偏器。在任何技能、任何对话中途用，agent 会把刚才那段重讲一遍——补上你缺的上下文，用大白话，用 `GLOSSARY.md` 的词汇。它是事后补救；`/woz-grill-with-docs` 是事前根治，因为早点谈妥共享语言，术语压根不会冒出来。
 - **`/woz-teach`**：跨多次会话学一个概念，用当前目录作为有状态的工作区。
-- **`/woz-writing-for-agents`**：写「给 agent 消费的文档」的参考——skill、AGENTS.md、被指针指向的文档。
+- **`/woz-writing-for-agents`**：撰写「给 agent 消费的文档」时查阅：skill、AGENTS.md、以及被指针指向的文档。
 
 ## 前置
 
