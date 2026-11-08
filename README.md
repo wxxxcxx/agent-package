@@ -1,4 +1,4 @@
-# woz-skills — 技能包（中文版）
+# skills — 技能包（中文版，APM 包名 `w-skills`）
 
 27 个 AI 编程助手技能（skills），派生自 [mattpocock/skills](https://github.com/mattpocock/skills)，**正文全部译为中文**，通过 APM 分发。
 

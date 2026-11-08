@@ -1,4 +1,4 @@
-# woz-skills
+# skills
 
 本仓库是 [mattpocock/skills](https://github.com/mattpocock/skills) 的修改版，所有技能以 `w-` 前缀重命名。使用 [APM](https://github.com/anomalyco/agent-package-manager) 管理打包和编译。
 
@@ -6,7 +6,7 @@
 
 | 包                | 路径                  | 依赖                  |
 | ----------------- | --------------------- | --------------------- |
-| `woz-skills` (根)        | `./apm.yml`           | general + engineering |
+| `w-skills` (根)        | `./apm.yml`           | general + engineering |
 | `w-general`     | `general/apm.yml`     | 无                    |
 | `w-engineering` | `engineering/apm.yml` | `../general`          |
 
