@@ -2,9 +2,8 @@ upstream: https://github.com/mattpocock/skills
 repo: https://github.com/wxxxcxx/skills
 commit: 4ae2317ddb22b046e26455e4f9c9b3aaaf62212d
 upstream_date: 2026-10-31T14:23:30Z
-synced_at: 2026-11-08T12:26:58Z
 note: 只记录上游 commit 与文件哈希，不保存英文原文（需要时用 git show 取回）
-skills:
+skills:  # 技能与上游路径的唯一对应表
   w-code-review:
     upstream: skills/engineering/code-review
     upstream_sha256: 9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd

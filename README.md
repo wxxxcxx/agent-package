@@ -1,131 +1,86 @@
-# skills — 技能包（中文版，APM 包名 `w-skills`）
+# skills
 
-27 个 AI 编程助手技能（skills），派生自 [mattpocock/skills](https://github.com/mattpocock/skills)，**正文全部译为中文**，通过 APM 分发。
+27 个面向工程实战的 agent 技能，正文为中文，全部以 `w-` 开头。派生自 [mattpocock/skills](https://github.com/mattpocock/skills)，译文规范见 [docs/TRANSLATION.md](docs/TRANSLATION.md)。
 
-- 上游同步靠 `mattpocock.lock`（记录 commit 与文件哈希）+ `scripts/sync.sh`（比对差量）
-- 技能统一 `w-` 前缀，与上游区分
-- 代码块、命令、路径、变量名保持原样，不翻译
+## 安装
 
-## 技能一览
-
-### 主流程：想法 → 交付
-
-| Skill | 调用方 | 职责 |
-|-------|--------|------|
-| `w-grill-with-docs` | 用户调用 | 拷问打磨想法，生成术语表与 ADR |
-| `w-help` | 用户调用 | 技能路由器 —— 描述场景，推荐路径 |
-| `w-to-spec` | `w-help` → | 把对话合成为 spec，发布到 tracker |
-| `w-to-tickets` | `w-help` → | 把 spec 拆成垂直切片 ticket（声明阻塞边） |
-| `w-implement` | `w-help` → | 通用实现入口，内部驱动 `w-tdd`，收尾跑 `w-code-review` |
-| `w-implement-spec` | `w-help` → | 整个 spec 在一个集成分支上并行跑多个 subagent |
-| `w-tdd` | `w-implement` 调用 | 红-绿-重构循环 |
-| `w-code-review` | `w-implement` 调用 | 双轴审查（规范 + 规格），并行 subagent |
-| `w-pr` | 模型自调用 | PR 正文模板：最小可视化 + 前后证据 + 合并风险 |
-| `w-prototype` | 主流程分支 | 一次性原型验证设计问题（逻辑或 UI） |
-| `w-handoff` | 跨会话 | 上下文压缩，桥接会话窗口 |
-
-### 入轨（On-ramps）
-
-| Skill | 调用方 | 职责 |
-|-------|--------|------|
-| `w-triage` | 用户调用 | Issue/PR 分类流转，输出 agent-ready brief |
-| `w-diagnosing-bugs` | 用户调用 | 严格 Bug 诊断：先建反馈环，再假设 |
-| `w-wayfinder` | 用户调用 | 探索式规划大块工作，逐步收窄 |
-| `w-wizard` | 模型自调用 | 生成交互式 bash 向导，带人走只有人能做的步骤 |
-| `w-research` | 模型自调用 | 后台调研，输出带引用的 Markdown |
-
-### 代码库健康
-
-| Skill | 调用方 | 职责 |
-|-------|--------|------|
-| `w-improve-codebase-architecture` | 用户调用 | 扫描浅模块，生成 HTML 报告，挑选改进项 |
-| `w-retro` | 用户调用 | 会话复盘：改进 agent 环境（导航/检查/规范/工具） |
-
-### 底层词汇（被以上技能引用）
-
-| Skill | 职责 |
-|-------|------|
-| `w-codebase-design` | 深模块设计词汇（module / seam / depth / leverage） |
-| `w-domain-modeling` | 领域术语打磨，ADR 记录 |
-| `w-grilling` | 拷问核心引擎，被多个技能复用 |
-
-### 通用
-
-| Skill | 调用方 | 职责 |
-|-------|--------|------|
-| `w-grill-me` | 用户调用 | 无代码库的方案拷问 |
-| `w-teach` | 用户调用 | 多会话有状态教学 |
-| `w-wait-what` | 用户调用 | 没听懂，要求换更简单的说法重讲 |
-| `w-to-questionnaire` | 用户调用 | 答不了的决策 → 转成问卷给别人填 |
-| `w-writing-for-agents` | 模型自调用 | 写给 agent 看的文档（skill / AGENTS.md） |
-| `w-setup-project` | 用户调用 | 一次性项目配置（tracker / labels / docs 目录） |
-
-## 调用关系
-
-```
-w-setup-project (一次性)
-       │
-       ▼
-w-help ─── 路由器，推荐以下路径
-
-═══ 新想法 ═══
-w-grill-with-docs ──► 单会话 ──► w-implement ──► w-tdd
-       │                              │            └► w-code-review
-       │                              └► w-pr
-       │
-       └─► 多会话 ──► w-to-spec ──► w-to-tickets
-                            │
-                            └──► w-implement（每 ticket 新会话）
-                                 或 w-implement-spec（并行 subagent）
-       │
-       └─► 需要验证 ──► w-handoff ──► w-prototype
-
-═══ Bug / 请求涌入 ═══
-w-triage ──► w-implement
-
-═══ 大块模糊工作 ═══
-w-wayfinder ──► w-to-spec / w-implement
-
-═══ 难复现 Bug ═══
-w-diagnosing-bugs
-       └── 无合适 seam ──► w-improve-codebase-architecture
-
-═══ 代码库健康 ═══
-w-improve-codebase-architecture ──► w-grill-with-docs（产生改进想法）
-w-retro ──► 改进 agent 环境本身
-
-═══ 底层词汇（被以上技能引用） ═══
-w-codebase-design   ← w-improve-codebase-architecture, w-tdd
-w-domain-modeling   ← w-grill-with-docs, w-triage
-w-grilling          ← w-grill-with-docs, w-triage
-
-═══ 独立使用 ═══
-w-grill-me              无代码库的方案拷问
-w-teach                 多会话学习
-w-wait-what             听不懂时要求重讲
-w-to-questionnaire      把决策转成问卷
-w-writing-for-agents    写 skill / AGENTS.md 的规范
-```
-
-## 命名与映射
-
-所有技能以 `w-` 前缀命名。特殊映射：
-
-| 上游名 | 本仓库名 |
-|--------|----------|
-| `ask-matt` | `w-help` |
-| `setup-matt-pocock-skills` | `w-setup-project` |
-| `writing-for-agents` | `w-writing-for-agents` |
-| 其余 | `w-` + 原名 |
-
-完整映射见 `engineering/MAPPING.md`、`general/MAPPING.md`。
-
-## 上游同步
+通过 APM：
 
 ```bash
-scripts/sync.sh            # 比对 mattpocock.lock 与上游，输出改动清单
-scripts/sync.sh --stage    # 把有改动的上游文件导出到临时目录，供翻译
-scripts/sync.sh --bump     # 同步完成后，更新 lock 里的 commit
+apm install wxxxcxx/skills
 ```
 
-`mattpocock.lock` 只记录：上游 commit、同步时间、每个技能的上游路径与两个 sha256（上游文件 / 本地译文）。**仓库里不保存英文原文** —— 需要旧版本时用 `git show <commit>:skills/...` 从上游取。
+只取其中一个：
+
+```bash
+apm install wxxxcxx/skills --skill w-tdd
+```
+
+不装 APM 时，直接复制文件即可：
+
+```bash
+git clone https://github.com/wxxxcxx/skills && cd skills
+cp -r engineering/.apm/skills/w-* general/.apm/skills/w-* ~/.claude/skills/
+```
+
+Codex、Copilot 等其他 harness，把目标目录换成对应的 skills 路径。
+
+## 开始使用
+
+不知道该用哪个技能时，先问路由器：
+
+```
+/w-help
+```
+
+说明你要做的事，它给出路径与要调用的技能。第一次跑工程流程之前，先执行一次 `/w-setup-project`，配置 issue tracker、分诊标签与文档布局；此后各技能都读这几份配置。
+
+## 主流程
+
+多数工作走这条线：一个想法进来，交付出去。
+
+```mermaid
+flowchart LR
+  A["/w-grill-with-docs<br/>拷问想法"] --> B{"能否在一次会话内完成？"}
+  B -- 能 --> C["/w-implement<br/>实现"]
+  B -- 不能 --> D["/w-to-spec<br/>写成规格"] --> E["/w-to-tickets<br/>拆工单"] --> C
+  C --> F["/w-code-review<br/>双轴评审"] --> G["/w-retro<br/>复盘改进"]
+```
+
+`/w-implement` 内部驱动 `/w-tdd`（一次一个红-绿切片）与 `/w-code-review`（规范 + 规格两条轴）。想一次跑完整份 spec、由多个子代理并行实现，用 `/w-implement-spec` 代替逐张 `/w-implement`。
+
+## 另外两个入口
+
+**有东西坏了**：
+
+```
+/w-diagnosing-bugs
+```
+
+先建立能对这个缺陷变红的反馈回路，再谈假设。修完在同一次会话跑 `/w-retro`。
+
+**大而模糊、一次会话装不下**：
+
+```
+/w-wayfinder
+```
+
+在 issue tracker 上铺一张决策地图，逐张解决，直到路清晰，再交给 `/w-to-spec` 进入主流程。
+
+## 独立使用
+
+```
+/w-grill-me           连环追问，不落盘
+/w-prototype          一次性代码验证设计问题
+/w-research           后台调研，产出带引用的 Markdown
+/w-handoff            把当前对话压缩成交接文档
+/w-triage             让 issue 与 PR 走完分诊状态机
+/w-teach              跨会话学一个概念
+/w-wait-what          没听懂，让它重讲一遍
+```
+
+完整清单与各自适用场景，见 `/w-help` 的路由表。
+
+## 前提
+
+需要 harness 支持斜杠命令与 Skill 工具（Claude Code、Codex、Copilot 等）。技能假设仓库存在 issue tracker，默认 GitHub Issues，也可用本地 Markdown，由 `/w-setup-project` 指定。

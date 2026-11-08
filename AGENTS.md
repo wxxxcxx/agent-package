@@ -34,7 +34,7 @@
 
 ## 注意事项
 
-- `engineering/MAPPING.md` 和 `general/MAPPING.md` 是技能与上游路径的对应表，新增或删除技能必须同步更新
+- `mattpocock.lock` 是技能与上游路径的唯一对应表（`scripts/gen_lock.py` 维护），新增或删除技能时同步更新
 - `mattpocock.lock` 里每个技能记两个哈希：`upstream_sha256`（上游文件）与 `zh_sha256`（本地译文）。后者与当前文件不符，说明有人手改过，同步时应跳过自动覆盖
 - 上游删除的技能（如 `resolving-merge-conflicts`）要连同产物、prompt 一起删
 

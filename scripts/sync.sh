@@ -53,19 +53,5 @@ if [ "$MODE" = "--stage" ]; then
 fi
 
 if [ "$MODE" = "--bump" ]; then
-  python3 - "$LOCK" "$NEW_COMMIT" <<'PY'
-import sys, pathlib, datetime
-lock, commit = pathlib.Path(sys.argv[1]), sys.argv[2]
-lines = lock.read_text(encoding="utf-8").splitlines()
-out = []
-for l in lines:
-    if l.startswith("commit:"):
-        out.append(f"commit: {commit}")
-    elif l.startswith("synced_at:"):
-        out.append(f"synced_at: {datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}")
-    else:
-        out.append(l)
-lock.write_text("\n".join(out) + "\n", encoding="utf-8")
-print("mattpocock.lock 已更新")
-PY
+  python3 "$REPO_ROOT/scripts/gen_lock.py" --commit "$NEW_COMMIT" --date "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 fi
