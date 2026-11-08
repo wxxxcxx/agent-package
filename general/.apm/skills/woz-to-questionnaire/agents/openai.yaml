@@ -1,0 +1,5 @@
+interface:
+  display_name: "To Questionnaire"
+  short_description: "把答不了的决策转成问卷"
+policy:
+  allow_implicit_invocation: false

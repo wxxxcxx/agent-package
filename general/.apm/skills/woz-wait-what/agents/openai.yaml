@@ -1,0 +1,5 @@
+interface:
+  display_name: "Wait What"
+  short_description: "没听懂，重新讲一遍"
+policy:
+  allow_implicit_invocation: false

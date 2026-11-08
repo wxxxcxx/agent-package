@@ -17,8 +17,10 @@
 | `skills/woz-triage`                        | `skills/engineering/triage`                        |
 | `skills/woz-wayfinder`                     | `skills/engineering/wayfinder`                     |
 | `skills/woz-domain-modeling`               | `skills/engineering/domain-modeling`               |
-| `skills/woz-diagnosing-bugs`               | `skills/engineering/diagnosing-bugs`               |
-| `skills/woz-diagnosing-bugs`               | `skills/engineering/diagnosing-bugs`               |
-| `skills/woz-resolving-merge-conflicts`     | `skills/engineering/resolving-merge-conflicts`     |
 | `skills/woz-improve-codebase-architecture` | `skills/engineering/improve-codebase-architecture` |
 | `skills/woz-codebase-design`               | `skills/engineering/codebase-design`               |
+| `skills/woz-pr`                            | `skills/engineering/pr`                            |
+| `skills/woz-retro`                         | `skills/engineering/retro`                         |
+| `skills/woz-implement-spec`                | `skills/engineering/implement-spec`                |
+| `skills/woz-wizard`                        | `skills/engineering/wizard`                        |
+| `skills/woz-diagnosing-bugs`                | `skills/engineering/diagnosing-bugs`               |

@@ -6,4 +6,6 @@
 | `skills/woz-grilling`             | `skills/productivity/grilling`             |
 | `skills/woz-handoff`              | `skills/productivity/handoff`              |
 | `skills/woz-teach`                | `skills/productivity/teach`                |
-| `skills/woz-writing-great-skills` | `skills/productivity/writing-great-skills` |
+| `skills/woz-writing-for-agents`   | `skills/productivity/writing-for-agents`   |
+| `skills/woz-to-questionnaire`     | `skills/productivity/to-questionnaire`     |
+| `skills/woz-wait-what`            | `skills/productivity/wait-what`            |
