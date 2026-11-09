@@ -43,11 +43,11 @@ Codex、Copilot 等其他 harness，把目标目录换成对应的 skills 路径
 flowchart LR
   A["/w-grill-with-docs<br/>拷问想法"] --> B{"能否在一次会话内完成？"}
   B -- 能 --> C["/w-implement<br/>实现"]
-  B -- 不能 --> D["/w-to-spec<br/>写成规格"] --> E["/w-to-tickets<br/>拆工单"] --> C
+  B -- 不能 --> D["/w-to-spec<br/>写成规格"] --> E["/w-to-tickets<br/>拆 ticket"] --> C
   C --> F["/w-code-review<br/>双轴评审"] --> G["/w-retro<br/>复盘改进"]
 ```
 
-`/w-implement` 内部驱动 `/w-tdd`（一次一个红-绿切片）与 `/w-code-review`（规范 + 规格两条轴）。想一次跑完整份 spec、由多个子代理并行实现，用 `/w-implement-spec` 代替逐张 `/w-implement`。
+`/w-implement` 内部驱动 `/w-tdd`（一次一个红-绿切片）与 `/w-code-review`（规范 + 规格两条轴）。想一次跑完整份 spec、由多个 subagent 并行实现，用 `/w-implement-spec` 代替逐张 `/w-implement`。
 
 ## 另外两个入口
 

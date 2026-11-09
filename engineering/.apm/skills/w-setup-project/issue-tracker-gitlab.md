@@ -30,17 +30,17 @@
 
 创建一个 GitLab issue。
 
-## 技能说「取回相关工单」时
+## 技能说「取回相关 ticket」时
 
 执行 `glab issue view <number> --comments`。
 
 ## 探路操作
 
-由 `/w-wayfinder` 使用。**地图**是一张 issue，**子** issue 作为工单。
+由 `/w-wayfinder` 使用。**地图**是一张 issue，**子** issue 作为 ticket。
 
 - **地图**：一张带 `wayfinder:map` 标签的 issue，正文含 Notes / Decisions-so-far / 迷雾三节。`glab issue create --label wayfinder:map`。（在支持原生 epic 的 GitLab 版本上，可用 epic 承载地图；带标签的 issue 则在任何版本都可用。）
-- **子工单**：描述顶部写 `Part of #<map>`，并与地图建立关联（`glab issue create --linked-issues <map> --link-type relates_to`），标签为 `wayfinder:<type>`（`research`／`prototype`／`grilling`／`task`）。认领后指派给推动地图的开发者
-- **阻塞**：GitLab 的**原生阻塞链接**——界面上可见的规范表示。用 `/blocked_by #<n>` 快捷动作添加，以 note 形式发布（`glab issue note <child> --message "/blocked_by #<blocker>"`）。原生阻塞链接属 Premium／Ultimate 功能；免费版（或功能不可用）时退回到描述顶部的 `Blocked by: #<n>, #<n>` 行。所有阻塞方关闭时，该工单解除阻塞
+- **子 ticket**：描述顶部写 `Part of #<map>`，并与地图建立关联（`glab issue create --linked-issues <map> --link-type relates_to`），标签为 `wayfinder:<type>`（`research`／`prototype`／`grilling`／`task`）。认领后指派给推动地图的开发者
+- **阻塞**：GitLab 的**原生阻塞链接**——界面上可见的规范表示。用 `/blocked_by #<n>` 快捷动作添加，以 note 形式发布（`glab issue note <child> --message "/blocked_by #<blocker>"`）。原生阻塞链接属 Premium／Ultimate 功能；免费版（或功能不可用）时退回到描述顶部的 `Blocked by: #<n>, #<n>` 行。所有阻塞方关闭时，该 ticket 解除阻塞
 - **前沿查询**：用 `glab api projects/:id/issues/<map>/links` 列出地图的子 issue，保留带 `wayfinder:<type>` 标签且未关闭者；剔除仍有未关闭阻塞方者——原生 `blocked_by` 链接指向未关闭 issue（`glab api projects/:id/issues/<child-iid>/links`）、`Blocked by` 行里仍有未关闭 issue、以及已指派者；按地图顺序取第一个
 - **认领**：`glab issue update <n> --assignee @me`，是该会话的第一次写操作
 - **解决**：`glab issue note <n> --message "<answer>"`，再 `glab issue close <n>`，然后向地图的 Decisions-so-far 追加一条上下文指针（摘要加链接）

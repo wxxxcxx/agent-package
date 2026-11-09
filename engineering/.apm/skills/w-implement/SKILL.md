@@ -1,12 +1,12 @@
 ---
 name: w-implement
-description: "按 spec 或一组 工单 实现一块工作。"
+description: "按 spec 或一组 ticket 实现一块工作。"
 disable-model-invocation: true
 ---
 
-实现用户在 spec 或 工单 里描述的工作。
+实现用户在 spec 或 ticket 里描述的工作。
 
-如果用户传了 工单 引用，先从 issue tracker 取回来，开工前报出它的标题。引用有歧义就问。
+如果用户传了 ticket 引用，先从 issue tracker 取回来，开工前报出它的标题。引用有歧义就问。
 
 在事先约定的接缝上，尽量调用 Skill 工具执行 `w-tdd`。
 
