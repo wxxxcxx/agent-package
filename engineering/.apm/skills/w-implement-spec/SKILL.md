@@ -1,6 +1,6 @@
 ---
 name: w-implement-spec
-description: "把 /w-to-spec 与 /w-to-工单 的产出落地成代码。"
+description: "把 /w-to-spec 与 /w-to-tickets 的产出落地成代码。"
 disable-model-invocation: true
 ---
 
