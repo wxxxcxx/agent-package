@@ -1,5 +1,5 @@
 ---
-description: "Ask which skill or flow fits your situation. A router over the skills in this repo."
+description: "不知道该用哪个技能或哪条流程时，问这里。它是本仓库技能之上的路由器。"
 ---
 
 Please read and follow the instructions in the `w-help` skill playbook:

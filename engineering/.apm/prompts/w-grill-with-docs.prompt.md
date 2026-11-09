@@ -1,5 +1,5 @@
 ---
-description: "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go."
+description: "连环追问以打磨计划或设计，过程中同步产出文档（ADR 与术语表）。"
 ---
 
 Please read and follow the instructions in the `w-grill-with-docs` skill playbook:

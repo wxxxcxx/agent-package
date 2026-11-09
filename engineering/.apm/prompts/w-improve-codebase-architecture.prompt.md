@@ -1,5 +1,5 @@
 ---
-description: "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick."
+description: "扫描代码库中可深化的机会，以可视化 HTML 报告呈现，再就选中的那一项展开追问。"
 ---
 
 Please read and follow the instructions in the `w-improve-codebase-architecture` skill playbook:

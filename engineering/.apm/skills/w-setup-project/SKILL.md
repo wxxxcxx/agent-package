@@ -46,7 +46,7 @@ disable-model-invocation: true
 - **本地 Markdown**：issue 以文件形式存放在本仓库 `.scratch/<feature>/` 下（适合个人项目或没有远端的仓库）
 - **其他**（Jira、Linear 等）：请用户用一段话描述工作流程，本技能原样记录为自由文本
 
-将选择写入 `docs/agents/issue-tracker.md`。GitHub 与 GitLab 模板均带有一个「把 PR 也当作请求入口」的开关，默认**关闭**。保持关闭，且不要主动提出：确有需要的人日后可自行在文件中打开。
+将选择写入 `docs/agents/issue-tracker.md`。GitHub 与 GitLab 模板均带有一个「把 PR 也当作请求入口」的开关，默认**关闭**。保持关闭，且不要主动提出：希望把外部 PR 纳入分诊队列的人，日后可在文件里打开这个开关。
 
 GitHub 或 GitLab tracker 需要一个可访问的仓库。用户选定之后，若没有 `git remote` 指向该主机，先向其索取仓库 URL 并接好（必要时 `git init`，再 `git remote add origin <url>`），然后继续。完成标志是在本目录下 `gh repo view`／`glab repo view` 能打印出该项目；做不到就停下，告知用户缺少什么。
 

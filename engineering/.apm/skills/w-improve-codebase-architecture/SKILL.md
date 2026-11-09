@@ -1,6 +1,6 @@
 ---
 name: w-improve-codebase-architecture
-description: 扫描代码库中值得重构的地方，以可视化 HTML 报告呈现，再就选中的那一项展开追问。
+description: 扫描代码库中可深化的机会，以可视化 HTML 报告呈现，再就选中的那一项展开追问。
 disable-model-invocation: true
 ---
 

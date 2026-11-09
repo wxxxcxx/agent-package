@@ -1,5 +1,5 @@
 ---
-description: "Plan a huge chunk of work — more than one agent session can hold — as a shared map of investigation tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear."
+description: "把一大块工作（超出单个 agent 会话的容量）规划成 issue tracker 上共享的决策工单地图，逐张解决，直到通往目的地的路清晰为止。"
 ---
 
 Please read and follow the instructions in the `w-wayfinder` skill playbook:

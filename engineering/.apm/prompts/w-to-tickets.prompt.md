@@ -1,5 +1,5 @@
 ---
-description: "Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker — edges as text in one file per ticket locally, or native blocking links on a real tracker."
+description: "把计划、spec 或当前对话拆成一组工单，每张只打通一条端到端的最小路径，并声明自己的阻塞边，发布到已配置的 tracker：本地记为单文件里的依赖清单，真实 tracker 记为原生阻塞关系。"
 ---
 
 Please read and follow the instructions in the `w-to-tickets` skill playbook:

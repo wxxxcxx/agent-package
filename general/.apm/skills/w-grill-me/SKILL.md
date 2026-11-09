@@ -1,6 +1,6 @@
 ---
 name: w-grill-me
-description: 连环追问以打磨计划或设计，不在本地留下任何记录。
+description: 连环追问以打磨计划或设计。
 disable-model-invocation: true
 ---
 

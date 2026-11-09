@@ -1,12 +1,12 @@
 ---
 name: w-help
-description: 不知道该用哪个技能时，问这里。它是本仓库技能之上的路由器。
+description: 不知道该用哪个技能或哪条流程时，问这里。它是本仓库技能之上的路由器。
 disable-model-invocation: true
 ---
 
 # 技能路由
 
-技能太多记不住，问就对了。
+记不住所有技能，那就问。
 
 **在说某个技能做什么、或建议跳过某一步之前，先读那个技能的 SKILL.md**：这里的摘要只用于定位。
 
@@ -22,12 +22,12 @@ disable-model-invocation: true
    - **`/w-prototype`** 用一次性代码回答那个问题；
    - 再用 **`/w-handoff`** 把学到的带回来，并在原来的想法线程里引用它。
 3. **分支：这是要跨多个会话的构建吗？**
-   - **是** → **`/w-to-spec`**（把线程变成 spec），再用 **`/w-to-tickets`** 拆成 tracer bullet ticket，每张声明自己的**阻塞边**。然后二选一：
-     - 逐 ticket 跑 **`/w-implement`**，**每张之间 `/clear` 上下文**。本地 tracker 就是 `.scratch/<feature>/issues/` 下一张一个文件，手工按阻塞顺序做；真 tracker 上这些边会变成原生阻塞链接，任何阻塞已完成的 ticket 都能领。每张 ticket 都是自包含的，所以上一张的上下文可以丢。
-     - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 tickets 当**任务图**读，在就绪的**前沿**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
+   - **是** → **`/w-to-spec`**（把线程变成 spec），再用 **`/w-to-tickets`** 拆成 tracer bullet 工单，每张声明自己的**阻塞边**。然后二选一：
+     - 逐 工单 跑 **`/w-implement`**，**每张之间 `/clear` 上下文**。本地 tracker 就是 `.scratch/<feature>/issues/` 下一张一个文件，手工按阻塞顺序做；真 tracker 上这些边会变成原生阻塞链接，任何阻塞已完成的 工单 都能领。每张 工单 都是自包含的，所以上一张的上下文可以丢。
+     - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 工单 当**任务图**读，在就绪的**前沿**上并行跑实现型 子代理，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
    - **否** → 就在**同一个上下文窗口**里跑 **`/w-implement`**。
 
-   两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收尾——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 ticket 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
+   两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收尾——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 工单 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
 
    工作要以 PR 形式提交时，**`/w-pr`** 决定正文形状：能说清改动的最小视图、改动前后的证据、以及单向门/双向门的判断。它是模型自调用的，写 PR 时 agent 会自己去拿。
 
@@ -35,7 +35,7 @@ disable-model-invocation: true
 
 ### 上下文卫生
 
-第 1–3 步保持在**同一个不被打断的上下文窗口**里（`/w-to-tickets` 之前不要 compact、不要 clear），这样拷问、spec、tickets 都建立在同一套思考上。之后每个 `/w-implement` 都从 ticket 重新开始。`/w-retro` 要在它回看的那次会话里跑，clear 之前跑；已经 clear 了，就把它指向那次会话的日志。
+第 1–3 步保持在**同一个不被打断的上下文窗口**里（`/w-to-tickets` 之前不要 compact、不要 clear），这样拷问、spec、工单 都建立在同一套思考上。之后每个 `/w-implement` 都从 工单 重新开始。`/w-retro` 要在它回看的那次会话里跑，clear 之前跑；已经 clear 了，就把它指向那次会话的日志。
 
 这里的限制是 **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**：模型仍能锐利推理的那个窗口（当前最强模型上大约 150k token）。如果还没到 `/w-to-tickets` 就接近它，不要硬撑着降智跑；在最近的阶段边界 `/compact`，然后继续（见「阶段边界」）。
 
@@ -45,11 +45,11 @@ disable-model-invocation: true
 
 - **Bug 和需求堆起来了** → **`/w-triage`**。它让 issue 走完分诊角色，产出 agent 可直接开工的 issue，之后由 **`/w-implement`** 接手。
 
-  分诊只处理**不是你创建**的 issue：bug 报告、外部需求、任何原始进来的东西。`/w-to-tickets` 产出的 ticket 已经是 agent-ready，**不要再去分诊**。
+  分诊只处理**不是你创建**的 issue：bug 报告、外部需求、任何原始进来的东西。`/w-to-tickets` 产出的 工单 已经是 agent-ready，**不要再去分诊**。
 
 - **有东西坏了** → **`/w-diagnosing-bugs`**。给难的那些：一眼看不出来的、偶发的、夹在两个已知良好状态之间的回归。它在拿到**紧反馈环**（一条已经对*这个* bug 变红的命令）之前拒绝空想，然后用回归测试修掉。修完之后，在同一次会话里跑 **`/w-retro`**，问「什么能预防这个 bug」；如果真正的发现是「没有合适的接缝能锁住它」，那就是 **`/w-improve-codebase-architecture`** 的活。
 
-- **巨大而模糊的工程：全新项目，或一次会话装不下的大功能** → **`/w-wayfinder`**，这里认知负担最重的流程。从当前点到目的地还看不清路时，它在 issue tracker 上铺一张**共享地图**——一组**决策 ticket**——然后逐个解决，产出**决策而非交付物**，直到迷雾退去、路看清为止。`/w-grill-with-docs` 磨的是你能在一个会话里握住的想法，wayfinder 处理的是你握不住的那个；它更慢更重，所以只留给这种场合，绝不要用在一个范围已经清楚的功能上。
+- **巨大而模糊的工程：全新项目，或一次会话装不下的大功能** → **`/w-wayfinder`**，这里认知负担最重的流程。从当前点到目的地还看不清路时，它在 issue tracker 上铺一张**共享地图**——一组**决策 工单**——然后逐个解决，产出**决策而非交付物**，直到迷雾退去、路看清为止。`/w-grill-with-docs` 磨的是你能在一个会话里握住的想法，wayfinder 处理的是你握不住的那个；它更慢更重，所以只留给这种场合，绝不要用在一个范围已经清楚的功能上。
 
   地图清晰后，**它只交接、不构建**：在 **`/w-to-spec`** 处汇入主流程，把地图里互相关联的决策压成可执行的计划，然后照常 `/w-to-tickets`、`/w-implement`。把地图直接接到 `/w-implement` 会跳过这次压缩、丢掉关联细节，所以只有当发现这件事其实很小的时候才直接 `/w-implement`。
 
@@ -76,7 +76,7 @@ disable-model-invocation: true
 - **Subagent**：把范围很紧的任务送到它自己的窗口，拿回一份报告。
 - **`/compact`** 压缩当前上下文，用它开一个新会话。它是**默认选项**，排在树的底部，而不是第一反应。
 
-有序决策树、五个问题、每个分支的理由、以及为什么「主源成本」让**继续**成为第一个要排除的选项，见 [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md)。决策要在边界上做；阶段中途，要么继续，要么把剩下的拆给 subagent。
+有序决策树、五个问题、每个分支的理由、以及为什么「主源成本」让**继续**成为第一个要排除的选项，见 [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md)。决策要在边界上做；阶段中途，要么继续，要么把剩下的拆给 子代理。
 
 ## 独立使用
 

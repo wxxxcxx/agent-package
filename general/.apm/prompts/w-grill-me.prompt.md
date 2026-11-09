@@ -1,5 +1,5 @@
 ---
-description: A relentless interview to sharpen a plan or design.
+description: "连环追问以打磨计划或设计。"
 ---
 
 Please read and follow the instructions in the `w-grill-me` skill playbook:

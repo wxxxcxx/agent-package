@@ -1,12 +1,12 @@
 ---
-name: w-to-tickets
-description: 把计划、spec 或当前对话拆成一组工单，每张只打通一条端到端的最小路径并声明依赖关系，发布到已配置的 tracker：本地记为单文件里的依赖清单，真实 tracker 记为原生阻塞关系。
+name: w-to-工单
+description: 把计划、spec 或当前对话拆成一组工单，每张只打通一条端到端的最小路径，并声明自己的阻塞边，发布到已配置的 tracker：本地记为单文件里的依赖清单，真实 tracker 记为原生阻塞关系。
 disable-model-invocation: true
 ---
 
 # 拆分工单
 
-把计划、spec 或对话拆成一组**工单（ticket）**。每张工单只打通一条窄而完整的路径，贯通 schema、API、UI 与测试各层，做完即可独立验证；同时声明它**依赖**哪些工单先完成。
+把计划、spec 或对话拆成一组**工单（工单）**。每张工单只打通一条窄而完整的路径，贯通 schema、API、UI 与测试各层，做完即可独立验证；同时声明它**依赖**哪些工单先完成。
 
 issue tracker 与分诊标签词表应已提供；若未提供，提示用户先运行 `/w-setup-project`。
 
@@ -30,7 +30,7 @@ issue tracker 与分诊标签词表应已提供；若未提供，提示用户先
 
 - 每张工单贯通各层（schema、API、UI、测试），形成一条窄而**完整**的路径；沿纵向推进，不做只改一层的横向铺开
 - 单个切片完成后可独立演示或验证
-- 每个切片的体量应以一个全新的上下文窗口完成
+- 每个切片的体量应能装进一个全新的上下文窗口
 - 先行重构应排在最前
 
 </vertical-slice-rules>
@@ -66,7 +66,7 @@ issue tracker 与分诊标签词表应已提供；若未提供，提示用户先
 
 不得关闭或修改任何父级 issue。
 
-<local-ticket-template>
+<local-工单-template>
 
 # <NN>: <工单标题>
 
@@ -79,7 +79,7 @@ issue tracker 与分诊标签词表应已提供；若未提供，提示用户先
 - [ ] 验收标准一
 - [ ] 验收标准二
 
-</local-ticket-template>
+</local-工单-template>
 
 <issue-template>
 
