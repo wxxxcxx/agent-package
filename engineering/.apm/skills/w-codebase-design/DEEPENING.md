@@ -12,7 +12,7 @@
 
 ### 2. 可本地替换
 
-有本地测试替身的依赖（Postgres 用 PGLite，内存文件系统）。替身存在即可 deepening。deepening 后的模块在测试套件中带着替身运行，seam 是内部的，模块的外部接口上不设端口。
+有本地测试替身的依赖（Postgres 用 PGLite，内存文件系统）。替身存在即可做 deepening。deepening 之后的模块在测试套件中带着替身运行，seam 是内部的，模块的外部接口上不设端口。
 
 ### 3. 远程但自有（端口与 adapter）
 

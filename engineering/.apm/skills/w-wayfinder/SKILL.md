@@ -45,7 +45,7 @@ disable-model-invocation: true
 
 ## Not yet specified
 
-<!-- 见「战争迷雾」：范围内但暂时无法开成 ticket 的迷雾；随着前沿推进逐块升级为 ticket -->
+<!-- 见「战争迷雾」：范围内但暂时无法开成 ticket 的迷雾；随着 frontier 推进逐块升级为 ticket -->
 
 ## Out of scope
 
