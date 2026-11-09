@@ -39,8 +39,8 @@
 ```ts
 // 当前 ThemeConfig 接口并非为运行时切换而设计：
 interface ThemeConfig {
-  colors: ColorPalette; // 单一色板，构建时解析
-  fonts: FontStack;
+ colors: ColorPalette; // 单一色板，构建时解析
+ fonts: FontStack;
 }
 ```
 

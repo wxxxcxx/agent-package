@@ -2,11 +2,11 @@
 name: w-pr
 description: "写 PR 正文时使用。"
 metadata:
-  credits:
-    skill: show-me
-    author: Dex Horthy
-    organisation: Humanlayer
-    url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
+ credits:
+ skill: show-me
+ author: Dex Horthy
+ organisation: Humanlayer
+ url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
 
 用这个模板写 PR 正文：

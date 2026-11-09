@@ -76,14 +76,14 @@ PR 在范围内时，将外部 PR 一并纳入上述三组，并在每行标注 
 4. **拷问（按需）。** 若请求需要补全，调用 Skill 工具两次，分别执行「grilling」与「domain-modeling」，按轮次提问将其梳理成形，同时校准领域术语，并在决策落定时同步更新 `GLOSSARY.md` 与 ADR。
 
 5. **落实结论：**
-   - `ready-for-agent`：发布 agent 简报评论（见 [AGENT-BRIEF.md](AGENT-BRIEF.md)）。
-   - `ready-for-human`：结构同 agent 简报，但需说明为何不能委派（需判断力、需外部权限、需设计决策、需人工测试）。
-   - `needs-info`：发布分诊记录（模板见下）。
-   - `wontfix`：关闭 issue，评论内容取决于**原因**：
-     - **已实现**：代码库中已存在该变更。指出位置；**不要**写入 `.out-of-scope/`（该知识库只记录被否决的请求，不记录已建成的功能）。
-     - **否决（bug）**：礼貌说明后关闭。
-     - **否决（enhancement）**：写入 `.out-of-scope/`，在评论中链接该条目后关闭（见 [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md)）。
-   - `needs-triage`：直接套用该角色。若已有部分进展，可附一条评论。
+ - `ready-for-agent`：发布 agent 简报评论（见 [AGENT-BRIEF.md](AGENT-BRIEF.md)）。
+ - `ready-for-human`：结构同 agent 简报，但需说明为何不能委派（需判断力、需外部权限、需设计决策、需人工测试）。
+ - `needs-info`：发布分诊记录（模板见下）。
+ - `wontfix`：关闭 issue，评论内容取决于**原因**：
+ - **已实现**：代码库中已存在该变更。指出位置；**不要**写入 `.out-of-scope/`（该知识库只记录被否决的请求，不记录已建成的功能）。
+ - **否决（bug）**：礼貌说明后关闭。
+ - **否决（enhancement）**：写入 `.out-of-scope/`，在评论中链接该条目后关闭（见 [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md)）。
+ - `needs-triage`：直接套用该角色。若已有部分进展，可附一条评论。
 
 ## 快速覆盖状态
 

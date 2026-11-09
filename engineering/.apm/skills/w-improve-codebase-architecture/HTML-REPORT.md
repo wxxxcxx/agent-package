@@ -16,7 +16,7 @@
       mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
     </script>
     <style>
-      /* Tailwind 覆盖不干净的少量自定义：接缝虚线、手绘感箭头等 */
+      /* Tailwind 覆盖不干净的少量自定义：seam 虚线、手绘感箭头等 */
       .seam { stroke-dasharray: 4 4; }
       .leak { stroke: #dc2626; }
       .deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
@@ -34,7 +34,7 @@
 
 ## 页头
 
-仓库名、日期，加一份紧凑图例：实线框＝模块，虚线＝接缝，红色箭头＝渗漏，粗深色框＝深模块。不写导语，直接进候选。
+仓库名、日期，加一份紧凑图例：实线框＝模块，虚线＝seam，红色箭头＝渗漏，粗深色框＝深模块。不写导语，直接进候选。
 
 ## 候选卡片
 
@@ -108,14 +108,14 @@
 
 **只用这些词：** module、interface、implementation、depth、deep、shallow、seam、adapter、leverage、locality。
 
-**绝不替换为：** component、service、unit（指模块时）· API、signature（指接口时）· boundary（指接缝时）· layer、wrapper（指模块时）。
+**绝不替换为：** component、service、unit（指模块时）· API、signature（指接口时）· boundary（指 seam 时）· layer、wrapper（指模块时）。
 
 **符合这套风格的句式：**
 
 - 「Order 接入模块是浅的——接口几乎与实现等宽。」
-- 「定价逻辑越过接缝渗漏。」
+- 「定价逻辑越过 seam 渗漏。」
 - 「合并之后：一个接口，一处可测。」
-- 「两个适配器才配得上这道接缝：生产走 HTTP，测试走内存。」
+- 「两个 adapter 才配得上这道 seam：生产走 HTTP，测试走内存。」
 
 **收益要按术语表来写**：*「局部性：缺陷集中在一个模块」*、*「杠杆：一个接口，N 个调用点」*、*「接口收缩，实现吸收包装」*。不要写「更易维护」「代码更干净」——这些词不在术语表里，也不配占位置。
 

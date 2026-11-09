@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 如果用户传了 ticket 引用，先从 issue tracker 取回来，开工前报出它的标题。引用有歧义就问。
 
-在事先约定的接缝上，尽量调用 Skill 工具执行 `w-tdd`。
+在事先约定的 seam 上，尽量调用 Skill 工具执行 `w-tdd`。
 
 定期跑类型检查、定期跑单个测试文件，最后完整跑一次全量测试。
 

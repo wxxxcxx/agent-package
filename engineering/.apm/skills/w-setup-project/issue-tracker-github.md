@@ -45,6 +45,6 @@ GitHub 的 issue 与 PR 共用同一套编号，裸写 `#42` 可能指任一者�
 - **地图**：一张带 `wayfinder:map` 标签的 issue，正文含 Notes / Decisions-so-far / 迷雾三节。`gh issue create --label wayfinder:map`
 - **子 issue**：与地图关联为 GitHub sub-issue（见上方约定）。标签：`wayfinder:<type>`（`research`／`prototype`／`grilling`／`task`）。认领后指派给推动地图的开发者
 - **阻塞**：见上方约定中的**阻塞**。所有阻塞方关闭时，该 ticket 解除阻塞
-- **前沿查询**：列出地图的未关闭子 issue（`gh issue list --state open`，限定在地图的 sub-issue／任务列表内），剔除仍有未关闭阻塞方者（见上方**统计未关闭的阻塞方**）与已指派者；按地图顺序取第一个
+- **frontier 查询**：列出地图的未关闭子 issue（`gh issue list --state open`，限定在地图的 sub-issue／任务列表内），剔除仍有未关闭阻塞方者（见上方**统计未关闭的阻塞方**）与已指派者；按地图顺序取第一个
 - **认领**：`gh issue edit <n> --add-assignee @me`，是该会话的第一次写操作
 - **解决**：`gh issue comment <n> --body "<answer>"`，再 `gh issue close <n>`，然后向地图的 Decisions-so-far 追加一条上下文指针（摘要加链接）

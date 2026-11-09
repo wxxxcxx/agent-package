@@ -62,7 +62,7 @@ issue tracker 与分诊标签词表应已提供；若未提供，提示用户先
 - **本地文件**：在 `.scratch/<feature-slug>/issues/<NN>-<slug>.md` 下每张 ticket 一个文件，按依赖顺序从 `01` 编号（阻塞方在前）。每个文件的「Blocked by」列出其所依赖的编号与标题。使用下方单张 ticket 模板：一张一个文件，绝不合并为单一文件。
 - **真实 issue tracker（GitHub、Linear 等）**：按依赖顺序、阻塞方在前，每张 ticket 发布为一个 issue，使阻塞边可引用真实标识符。平台支持原生阻塞关系时使用之；否则将每张 ticket 的「Blocked by」设为阻塞它的 issue。若来源是一份既有 issue，则让每张 ticket 成为它的子 issue（按 tracker 文档中的操作）。除另有说明，一律打上 `ready-for-agent` 分诊标签：这些 ticket 按构造即可被 agent 领取。
 
-始终处理**前沿**：所有阻塞均已完成的 ticket。纯线性链条即从上到下。
+始终处理**frontier**：所有阻塞均已完成的 ticket。纯线性链条即从上到下。
 
 不得关闭或修改任何父级 issue。
 

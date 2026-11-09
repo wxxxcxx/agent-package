@@ -18,18 +18,18 @@ disable-model-invocation: true
 
 1. **`/w-grill-with-docs`** 通过访谈把想法磨尖。只要你**在一个工作目录里**，就从这里开始：它是有状态的，学到的内容会落到 `GLOSSARY.md` 和 ADR 里。（没有工作目录？改用 `/w-grill-me`，见「独立使用」。两者跑的是同一个 `/w-grilling` 原语；`grill-with-docs` 会留下记录，所以只要手边有仓库，它就是更好的那个。）
 2. **分支：所有问题都能在对话里定下来吗？** 如果某个问题需要一个能跑起来的答案（状态、业务逻辑、必须看到的 UI），就绕道去原型，来回都用 **`/w-handoff`** 衔接（原型住在自己的目录里，这正是 `/w-handoff` 的用途；见「阶段边界」）：
-   - **`/w-handoff`** 带出去，对着那份文件开一个新会话；
-   - **`/w-prototype`** 用一次性代码回答那个问题；
-   - 再用 **`/w-handoff`** 把学到的带回来，并在原来的想法线程里引用它。
+ - **`/w-handoff`** 带出去，对着那份文件开一个新会话；
+ - **`/w-prototype`** 用一次性代码回答那个问题；
+ - 再用 **`/w-handoff`** 把学到的带回来，并在原来的想法线程里引用它。
 3. **分支：这是要跨多个会话的构建吗？**
-   - **是** → **`/w-to-spec`**（把线程变成 spec），再用 **`/w-to-tickets`** 拆成 tracer bullet ticket，每张声明自己的**阻塞边**。然后二选一：
-     - 逐 ticket 跑 **`/w-implement`**，**每张之间 `/clear` 上下文**。本地 tracker 就是 `.scratch/<feature>/issues/` 下一张一个文件，手工按阻塞顺序做；真 tracker 上这些边会变成原生阻塞链接，任何阻塞已完成的 ticket 都能领。每张 ticket 都是自包含的，所以上一张的上下文可以丢。
-     - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 ticket 当**任务图**读，在就绪的**前沿**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
-   - **否** → 就在**同一个上下文窗口**里跑 **`/w-implement`**。
+ - **是** → **`/w-to-spec`**（把线程变成 spec），再用 **`/w-to-tickets`** 拆成 tracer bullet ticket，每张声明自己的**阻塞边**。然后二选一：
+ - 逐 ticket 跑 **`/w-implement`**，**每张之间 `/clear` 上下文**。本地 tracker 就是 `.scratch/<feature>/issues/` 下一张一个文件，手工按阻塞顺序做；真 tracker 上这些边会变成原生阻塞链接，任何阻塞已完成的 ticket 都能领。每张 ticket 都是自包含的，所以上一张的上下文可以丢。
+ - 用 **`/w-implement-spec`** 一次跑完整份 spec。它把 ticket 当**任务图**读，在就绪的**frontier**上并行跑实现型 subagent，全部落到一个**集成分支**。当你更想编排构建、而不是亲手逐张驱动时用它。
+ - **否** → 就在**同一个上下文窗口**里跑 **`/w-implement`**。
 
-   两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收尾——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 ticket 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
+ 两条路都是靠驱动 **`/w-tdd`**（一次一个红-绿切片）来写代码，最后用 **`/w-code-review`** 收尾——那是针对 diff 的双轴评审（规范 + 规格）。`/w-implement` 对每张 ticket 都跑这两步；`/w-implement-spec` 的实现者各自驱动 `/w-tdd`，整条集成分支只跑一次 `/w-code-review`。只想先写测试做一个具体行为、不需要完整 spec 时，单独用 **`/w-tdd`**；只想拿某个固定点来评审分支或 PR 时，单独用 **`/w-code-review`**。
 
-   工作要以 PR 形式提交时，**`/w-pr`** 决定正文形状：能说清改动的最小视图、改动前后的证据、以及单向门/双向门的判断。它是模型自调用的，写 PR 时 agent 会自己去拿。
+ 工作要以 PR 形式提交时，**`/w-pr`** 决定正文形状：能说清改动的最小视图、改动前后的证据、以及单向门/双向门的判断。它是模型自调用的，写 PR 时 agent 会自己去拿。
 
 4. **`/w-retro`** 收尾闭环。构建之后——尤其是跑歪了的那次——回看这次会话，提出对 agent **环境**的改动，而不是对代码的改动：导航指针、自动化检查、`/w-code-review` 执行的编码规范、引导文件、工具链。机械型错误变成确定性检查；判断题变成编码规范。下一次构建就从一个更好的环境开始。
 
@@ -45,26 +45,26 @@ disable-model-invocation: true
 
 - **Bug 和需求堆起来了** → **`/w-triage`**。它让 issue 走完分诊角色，产出 agent 可直接开工的 issue，之后由 **`/w-implement`** 接手。
 
-  分诊只处理**不是你创建**的 issue：bug 报告、外部需求、任何原始进来的东西。`/w-to-tickets` 产出的 ticket 已经是 agent-ready，**不要再去分诊**。
+ 分诊只处理**不是你创建**的 issue：bug 报告、外部需求、任何原始进来的东西。`/w-to-tickets` 产出的 ticket 已经是 agent-ready，**不要再去分诊**。
 
-- **有东西坏了** → **`/w-diagnosing-bugs`**。给难的那些：一眼看不出来的、偶发的、夹在两个已知良好状态之间的回归。它在拿到**紧密反馈回路**（一条已经对*这个* bug 变红的命令）之前拒绝空想，然后用回归测试修掉。修完之后，在同一次会话里跑 **`/w-retro`**，问「什么能预防这个 bug」；如果真正的发现是「没有合适的接缝能锁住它」，那就是 **`/w-improve-codebase-architecture`** 的活。
+- **有东西坏了** → **`/w-diagnosing-bugs`**。给难的那些：一眼看不出来的、偶发的、夹在两个已知良好状态之间的回归。它在拿到**紧密反馈回路**（一条已经对*这个* bug 变红的命令）之前拒绝空想，然后用回归测试修掉。修完之后，在同一次会话里跑 **`/w-retro`**，问「什么能预防这个 bug」；如果真正的发现是「没有合适的 seam 能锁住它」，那就是 **`/w-improve-codebase-architecture`** 的活。
 
 - **巨大而模糊的工程：全新项目，或一次会话装不下的大功能** → **`/w-wayfinder`**，这里认知负担最重的流程。从当前点到目的地还看不清路时，它在 issue tracker 上铺一张**共享地图**——一组**决策 ticket**——然后逐个解决，产出**决策而非交付物**，直到迷雾退去、路看清为止。`/w-grill-with-docs` 磨的是你能在一个会话里握住的想法，wayfinder 处理的是你握不住的那个；它更慢更重，所以只留给这种场合，绝不要用在一个范围已经清楚的功能上。
 
-  地图清晰后，**它只交接、不构建**：在 **`/w-to-spec`** 处汇入主流程，把地图里互相关联的决策压成可执行的计划，然后照常 `/w-to-tickets`、`/w-implement`。把地图直接接到 `/w-implement` 会跳过这次压缩、丢掉关联细节，所以只有当发现这件事其实很小的时候才直接 `/w-implement`。
+ 地图清晰后，**它只交接、不构建**：在 **`/w-to-spec`** 处汇入主流程，把地图里互相关联的决策压成可执行的计划，然后照常 `/w-to-tickets`、`/w-implement`。把地图直接接到 `/w-implement` 会跳过这次压缩、丢掉关联细节，所以只有当发现这件事其实很小的时候才直接 `/w-implement`。
 
 ## 代码库健康
 
 不是功能开发，是维护。
 
-- **`/w-improve-codebase-architecture`**：有空就跑一次，让代码库保持适合 agent 作业。它挑出**值得深化的地方**（把浅模块做深）；选中一个就*生成一个想法*，可以带进主流程的 `/w-grill-with-docs`。它是找候选的普查；**`/w-codebase-design`**（下）是你设计选中项的工作台。
+- **`/w-improve-codebase-architecture`**：有空就跑一次，让代码库保持适合 agent 作业。它挑出**值得 deepening 的地方**（把浅模块做深）；选中一个就*生成一个想法*，可以带进主流程的 `/w-grill-with-docs`。它是找候选的普查；**`/w-codebase-design`**（下）是你设计选中项的工作台。
 
 ## 底下的词汇层
 
 两个模型自调用的参考文档，位于其他技能*之下*，各自是该套词汇的唯一来源。当问题出在**词**、而不是流程时，直接取用；否则让上面的技能把它们调进来。
 
 - **`/w-domain-modeling`**：磨项目的*领域*语言——挑战模糊术语、拆开被复用滥用的词（一个 "account" 干三件事）、把难以逆转的决策记成 ADR。它是 `/w-grill-with-docs` 驱动的主动纪律，用来让 `GLOSSARY.md` 保持干净。
-- **`/w-codebase-design`** 是深模块词汇（module、interface、depth、seam、adapter、leverage、locality），用来设计模块的*形状*：小接口、大行为、干净接缝。`/w-tdd` 和 `/w-improve-codebase-architecture` 都说这套话。
+- **`/w-codebase-design`** 是深模块词汇（module、interface、depth、seam、adapter、leverage、locality），用来设计模块的*形状*：小接口、大行为、干净 seam。`/w-tdd` 和 `/w-improve-codebase-architecture` 都说这套话。
 
 ## 阶段边界
 
@@ -76,16 +76,16 @@ disable-model-invocation: true
 - **Subagent**：把范围很紧的任务送到它自己的窗口，拿回一份报告。
 - **`/compact`** 压缩当前上下文，用它开一个新会话。它是**默认选项**，排在树的底部，而不是第一反应。
 
-有序决策树、五个问题、每个分支的理由、以及为什么「主源成本」让**继续**成为第一个要排除的选项，见 [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md)。决策要在边界上做；阶段中途，要么继续，要么把剩下的拆给 subagent。
+有序决策树、五个问题、每个分支的理由、以及为什么「primary source 成本」让**继续**成为第一个要排除的选项，见 [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md)。决策要在边界上做；阶段中途，要么继续，要么把剩下的拆给 subagent。
 
 ## 独立使用
 
 完全在主流程之外。
 
 - **`/w-grill-me`**：和 `/w-grill-with-docs` 一样的连环拷问，但**无状态**：不在本地存任何东西，也不建 `GLOSSARY.md`。当你**不在工作目录里**时用它（磨一个计划、一个设计、一篇稿子，任何底下没有仓库的东西）。如果你在工作目录里，就用 `/w-grill-with-docs`：同样的访谈，还留下记录，严格来说更好。
-- **`/w-grilling`** 是访谈原语本身：轮次、前沿、事实归 agent、决策归你。`/w-grill-me` 和 `/w-grill-with-docs` 是两个具名入口，`/w-triage`、`/w-wayfinder`、`/w-improve-codebase-architecture` 内部也跑它。只有想要不带外壳的访谈时，才直接用它。
-- **`/w-prototype`** 是一个小的一次性程序，回答一个设计问题：这个状态模型对不对，或这个 UI 该长什么样。"一次性"约束的是代码怎么写，不是承诺把它毁掉：答案并回真实代码，原型本身留作**主源**，放在从 main 切出的 `prototype/<name>` 分支上，由实现 issue 指过去。它是主流程第 2 步的绕道，但任何时候设计问题在纸上定不下来，都可以拿它。
-- **`/w-research`**：把阅读的查证工作派给一个**后台 agent**——它对着**主源**调查一个问题，在仓库里留一份带引用的 Markdown。它读的时候你继续干活。产出物是要*带进*主流程的 `/w-grill-with-docs` 的，因为调研是喂思考，不是代替思考。
+- **`/w-grilling`** 是访谈原语本身：轮次、frontier、事实归 agent、决策归你。`/w-grill-me` 和 `/w-grill-with-docs` 是两个具名入口，`/w-triage`、`/w-wayfinder`、`/w-improve-codebase-architecture` 内部也跑它。只有想要不带外壳的访谈时，才直接用它。
+- **`/w-prototype`** 是一个小的一次性程序，回答一个设计问题：这个状态模型对不对，或这个 UI 该长什么样。"一次性"约束的是代码怎么写，不是承诺把它毁掉：答案并回真实代码，原型本身留作**primary source**，放在从 main 切出的 `prototype/<name>` 分支上，由实现 issue 指过去。它是主流程第 2 步的绕道，但任何时候设计问题在纸上定不下来，都可以拿它。
+- **`/w-research`**：把阅读的查证工作派给一个**后台 agent**——它对着**primary source**调查一个问题，在仓库里留一份带引用的 Markdown。它读的时候你继续干活。产出物是要*带进*主流程的 `/w-grill-with-docs` 的，因为调研是喂思考，不是代替思考。
 - **`/w-to-questionnaire`**：当卡住你的东西既不在你脑子里、也不在代码库，而在**别人**那里时，它替你写一份问卷让对方填。它是 `/w-grill-me` 的反面：不问你题目本身，只问**这次发送**（发给谁、要拿回什么），再把问题对准那道差距。拿回来的材料喂给 `/w-grill-with-docs` 或 `/w-to-spec`。
 - **`/w-wizard`**：处理只有**人**能做的步骤——开通基础设施、配置凭据或 CI secrets、走陌生的第三方后台、跑一次性迁移或切换。它生成一个交互式 bash 脚本，逐个打开 URL、收下每个值、写进 `.env` 与 GitHub secrets，于是这套流程不用每次再给 agent 讲一遍。模型自调用，agent 一撞到只有你能过的墙就会去拿它。如果 agent 自己能做，就该自己做；这个只用在人确实在环里的地方。
 - **`/w-wait-what`**：某条消息没讲清楚时的纠偏器。在任何技能、任何对话中途用，agent 会把刚才那段重讲一遍——补上你缺的上下文，用大白话，用 `GLOSSARY.md` 的词汇。它是事后补救；`/w-grill-with-docs` 是事前根治，因为早点谈妥共享语言，术语压根不会冒出来。

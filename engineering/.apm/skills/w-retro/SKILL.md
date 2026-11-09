@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 1. 调用 Skill 工具执行 `w-writing-for-agents`，拿到写作规范。
 
-2. 读用户指定那次会话的主源：可能要去翻本机的会话日志。用户没说哪次，就默认当前这次。
+2. 读用户指定那次会话的 primary source：可能要去翻本机的会话日志。用户没说哪次，就默认当前这次。
 
 3. 在下面这些类别里找改进候选。
 
