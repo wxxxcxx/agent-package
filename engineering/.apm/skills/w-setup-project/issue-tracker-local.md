@@ -23,7 +23,7 @@
 由 `/w-wayfinder` 使用。**地图**是一个文件，每张 ticket 对应一个**子**文件。
 
 - **地图**：`.scratch/<effort>/map.md`，正文含 Notes / Decisions-so-far / 迷雾三节
-- **子 ticket**：`.scratch/<effort>/issues/NN-<slug>.md`，从 `01` 起编号，正文写问题。`Type:` 行记录 ticket 类型（`research`／`prototype`／`grilling`／`task`），`Status:` 行记录 `claimed`／`resolved`
+- **子 issue**：`.scratch/<effort>/issues/NN-<slug>.md`，从 `01` 起编号，正文写问题。`Type:` 行记录 ticket 类型（`research`／`prototype`／`grilling`／`task`），`Status:` 行记录 `claimed`／`resolved`
 - **阻塞**：顶部附近的 `Blocked by: NN, NN` 行。所列文件全部为 `resolved` 时，该 ticket 解除阻塞
 - **前沿**：扫描 `.scratch/<effort>/issues/`，取未关闭、未阻塞、未被认领的文件，编号最小者优先
 - **认领**：动工前先写 `Status: claimed` 并保存
