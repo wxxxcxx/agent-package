@@ -22,11 +22,11 @@ ticket 不是步骤清单，而是一张**任务图**，彼此之间有阻塞关
 
 1. 读 spec 和 ticket，理解任务图。
 
-2. （可选）用一个**探索型 subagent** 完成 ticket 所需的调研——相关代码文件或外部文档。要保证它能写文件：把 markdown 笔记存到仓库之外的目录，供后续所有 subagent 读取。这样**实现型 subagent** 就能专注于实现，而不是边做边找。
+2. （可选）用一个**探索型 subagent** 完成 ticket 所需的调研——相关代码文件或外部文档。要保证它能写文件：把 markdown 笔记存到 `~/.agents/workspace/notes/<owner>--<repo>/` ，供后续所有 subagent 读取。这样**实现型 subagent** 就能专注于实现，而不是边做边找。（`<owner>--<repo>` 取自 git remote get-url origin，无远端时用仓库目录名。）
 
 3. 建集成分支。如果 issue tracker 通过 PR 关闭 issue，或用户要求，就在第 5 步首次合并后开一个 draft PR（分支上还没有提交时开不了），标明它会关闭该 spec 与相关 ticket。
 
-4. 每张 ticket 用一个全新的**实现型 subagent**，各自在自己的 worktree、自己的分支上：
+4. 每张 ticket 用一个全新的**实现型 subagent**，按 `~/.agents/workspace/worktrees/<owner>--<repo>/<feature>/<ticket-slug>` 规则创建各自的 worktree。各自在自己的 worktree、自己的分支上：
  - 开工前确认自己的 worktree 基于集成分支，不是就 reset 过去；
  - 调用 Skill 工具执行 `w-tdd` 把 ticket 做出来；
  - 汇报完成之前，先把集成分支的最新 commit 合并进自己的分支。
