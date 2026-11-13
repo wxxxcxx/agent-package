@@ -23,7 +23,7 @@ skills:  # 技能与上游路径的唯一对应表
   w-grill-me:
     upstream: skills/productivity/grill-me
     upstream_sha256: caaf8b8de1684f96e26b28f3c29189db5c89cce4b73e1c93d86164f66ef88637
-    zh_sha256: e12f75e3ff99aca2a137f22a397aae5984a20f1eeefb32745ead5e5dc3e45d03
+    zh_sha256: 913b2644743ebd7baf7be0d287b93e424c52df3ef411e56c4dbdafe6a91394cc
   w-grill-with-docs:
     upstream: skills/engineering/grill-with-docs
     upstream_sha256: 7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe
@@ -31,7 +31,7 @@ skills:  # 技能与上游路径的唯一对应表
   w-grilling:
     upstream: skills/productivity/grilling
     upstream_sha256: a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2
-    zh_sha256: f2f989e807f33dc9f0c33780f0ddacf0aeb89a47a83fa41bab09f45b470789ce
+    zh_sha256: e1657ae98cfbb67a49917deedadb905015bb3918f668a738cd5c4b26935a0795
   w-handoff:
     upstream: skills/productivity/handoff
     upstream_sha256: 4cbb043950dad2ffd3662ff1a5a0b51ae676004b5cae10e3787e8ee7a4ee69d3
